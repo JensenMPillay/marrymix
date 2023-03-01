@@ -1,0 +1,76 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+	<div class="row p-2 p-sm-5">
+		<div class="col-md-12">
+			<div class="card text-bg-info">
+				<div class="card-header">
+					<h4 class="card-title text-primary">Products Management</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table text-light">
+							<thead class="text-primary text-uppercase">
+								<tr>
+									<th>ID</th>
+									<th>Category</th>
+									<th>Name</th>
+									<th>Carousel</th>
+									<th>Description</th>
+									<th>Bundles</th>
+									<th>Created At</th>
+									<th>Updated At</th>
+									<th class="text-center">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for product in products %}
+									<tr>
+										<td>{{ product.id }}</td>
+										<td>{{ product.category.name }}</td>
+										<td>{{ product.name }}</td>
+										<td>
+											{% for img in product.carousel %}
+												<img src="{{ asset("uploads/images_products/" ~ img) }}" alt="{{ img }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+											{% endfor %}
+										</td>
+										<td>{{ product.description }}</td>
+										<td>
+											{% for bundle in product.bundle %}
+												{{ bundle.name }}
+												{% if not loop.last %}
+													,
+												{% endif %}
+											{% endfor %}
+										</td>
+										<td>{{ product.createdAt|date('Y-m-d H:i:s') }}</td>
+										<td>
+											{% if product.updatedAt %}
+												{{ product.updatedAt|date('Y-m-d H:i:s') }}
+											{% endif %}
+										</td>
+										<td>
+											<div class="btn-group" role="group">
+												<a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" class="btn btn-sm btn-warning m-1" data-toggle="modal" data-target="#productModal">
+													Edit
+												</a>
+												<a href="{{ path('app_admin_product_delete', {'id': product.id}) }}" class="btn btn-sm btn-danger m-1" onclick="return confirm('Are you sure?')">
+													Delete
+												</a>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card-footer text-center">
+					<a id="createBtnModal" href="{{ path('app_admin_product_create') }}" class="btn btn-primary" data-toggle="modal" data-target="#productModal">
+						Create
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

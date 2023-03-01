@@ -1,0 +1,20 @@
+{{ form_start(bundleForm) }}
+
+{{ form_row(bundleForm.name, {'attr': { 'placeholder': "Name"}}) }}
+
+{% for i in 0..4 %}
+	{{ form_row(bundleForm['image' ~ i]) }}
+	{% if edit and bundleForm.vars.value.carousel[i] is defined and bundleForm.vars.value.carousel[i] is not empty %}
+		<img src="{{ asset('uploads/images_bundles/' ~ bundleForm.vars.value.carousel[i]) }}" alt="{{ bundleForm.vars.value.carousel[i] }}" class="img-thumbnail max-w-[50px] max-h-[50px]">
+	{% endif %}
+{% endfor %}
+
+{{ form_row(bundleForm.description, {'attr': { 'placeholder': "Description"}}) }}
+
+{{ form_row(bundleForm.price, {'attr': { 'placeholder': "Price"}}) }}
+
+{{ form_row(bundleForm.products) }}
+
+<button type="submit" class="btn">{{ edit ? 'Update' : 'Create' }}</button>
+
+{{ form_end(bundleForm) }}

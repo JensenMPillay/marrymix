@@ -1,0 +1,15 @@
+{{ form_start(userForm) }}
+
+{{ form_row(userForm.email, {'attr': { 'placeholder': "Email"}}) }}
+{{ form_row(userForm.lastName, {'attr': { 'placeholder': "Last Name"}}) }}
+{{ form_row(userForm.firstName, {'attr': { 'placeholder': "First Name"}}) }}
+{% if not edit %}
+	{{ form_row(userForm.plainPassword, {'attr': { 'placeholder': "Password"}}) }}
+	{{ form_row(userForm.confirmPassword, {'attr': { 'placeholder': "Confirm Password"}}) }}
+{% endif %}
+{{ form_row(userForm.address, {'attr': { 'placeholder': "Address"}}) }}
+{{ form_row(userForm.city, {'attr': { 'placeholder': "City"}}) }}
+{{ form_row(userForm.postalCode, {'attr': { 'placeholder': "Postal Code"}}) }}
+<button type="submit" class="btn">{{ edit ? 'Update' : 'Create' }}</button>
+{{form_errors(userForm)}}
+{{ form_end(userForm) }}

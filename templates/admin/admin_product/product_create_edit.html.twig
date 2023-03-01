@@ -1,0 +1,15 @@
+{{ form_start(productForm) }}
+{{ form_row(productForm.name, {'attr': { 'placeholder': "Name"}}) }}
+{% for i in 0..4 %}
+	{{ form_row(productForm['image' ~ i]) }}
+	{% if edit and productForm.vars.value.carousel[i] is defined and productForm.vars.value.carousel[i] is not empty %}
+		<img src="{{ asset('uploads/images_products/' ~ productForm.vars.value.carousel[i]) }}" alt="{{ productForm.vars.value.carousel[i] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+	{% endif %}
+{% endfor %}
+{{ form_row(productForm.description, {'attr': { 'placeholder': "Description"}}) }}
+{{ form_row(productForm.price, {'attr': { 'placeholder': "Price"}}) }}
+{{ form_row(productForm.quantity, {'attr': { 'placeholder': "Quantity"}}) }}
+{{ form_row(productForm.category) }}
+{{ form_row(productForm.bundle) }}
+<button type="submit" class="btn">{{ edit ? 'Update' : 'Create' }}</button>
+{{ form_end(productForm) }}

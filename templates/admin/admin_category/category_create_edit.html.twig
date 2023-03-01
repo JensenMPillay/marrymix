@@ -1,0 +1,24 @@
+{{ form_start(categoryForm) }}
+
+{{ form_row(categoryForm.name, {'attr': { 'placeholder': "Name"}}) }}
+
+{{ form_row(categoryForm.image1, {'attr': { 'placeholder': "Image"}}) }}
+{% if edit and categoryForm.vars.value.carousel[0] is defined and categoryForm.vars.value.carousel[0] is not empty %}
+	<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[0]) }}" alt="{{ categoryForm.vars.value.carousel[0] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+{% endif %}
+
+{{ form_row(categoryForm.image2, {'attr': { 'placeholder': "Image"}}) }}
+{% if edit and categoryForm.vars.value.carousel[1] is defined and categoryForm.vars.value.carousel[1] is not empty %}
+	<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[1]) }}" alt="{{ categoryForm.vars.value.carousel[1] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+{% endif %}
+
+{{ form_row(categoryForm.image3, {'attr': { 'placeholder': "Image"}}) }}
+{% if edit and categoryForm.vars.value.carousel[2] is defined and categoryForm.vars.value.carousel[2] is not empty %}
+	<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[2]) }}" alt="{{ categoryForm.vars.value.carousel[2] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+{% endif %}
+
+{{ form_row(categoryForm.description, {'attr': { 'placeholder': "Description"}}) }}
+
+<button type="submit" class="btn">{{ edit ? 'Update' : 'Create' }}</button>
+
+{{ form_end(categoryForm) }}

@@ -1,0 +1,47 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+	<div class="row p-2 p-sm-5">
+		<div class="col-md-12">
+			<div class="card text-bg-info">
+				<div class="card-header">
+					<h4 class="card-title text-primary">Contact Management</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table text-light">
+							<thead class="text-primary text-uppercase">
+								<tr>
+									<th>ID</th>
+									<th>Email</th>
+									<th>Subject</th>
+									<th>Content</th>
+									<th>CreatedAt</th>
+									<th class="text-center">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for contact in contacts %}
+									<tr>
+										<td>{{ contact.id }}</td>
+										<td>{{ contact.email }}</td>
+										<td>{{ contact.subject }}</td>
+										<td>{{ contact.content }}</td>
+										<td>{{ contact.createdAt|date('Y-m-d H:i:s') }}</td>
+										<td>
+											<div class="btn-group" role="group">
+												<a href="{{ path('app_admin_contact_delete', {'id': contact.id}) }}" class="btn btn-sm btn-danger m-1" onclick="return confirm('Are you sure?')">
+													Delete
+												</a>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

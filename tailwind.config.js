@@ -1,0 +1,60 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./assets/styles/**/*.scss",
+    "./templates/**/*.html.twig",
+    "./assets/js/**/*.js",
+    "./assets/js/**/*.jsx",
+    ".node_modules/tw-elements/dist/js/**/*/.js",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        Poppins: ["Poppins", "sans-serif"],
+      },
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        white: "#ffffff",
+        primary: "#e14ecbab",
+        primary: {
+          100: "#FFE1FF",
+          200: "#FFD2FF",
+          300: "#FFC0FF",
+          400: "#DE4BC8",
+          500: "#e14ecbab",
+          600: "#BF27AB",
+          700: "#9D008C",
+          800: "#7C006E",
+          900: "#5C0052",
+        },
+        secondary: "#11101d",
+        secondary: {
+          100: "#ececf3",
+          200: "#c6c5da",
+          300: "#b3b1cd",
+          400: "#a09ec1",
+          500: "#8c8ab4",
+          600: "#7977a8",
+          700: "#66639b",
+          800: "#53508f",
+          900: "#11101d",
+        },
+        tetriary: "#1d1d2e",
+        success: "#00500a",
+        info: "#1d1d2e",
+        warning: "#ffa600",
+        danger: "#a40010",
+        first: "#e14ecbab",
+        second: "#11101d",
+        third: "#1d1d2e",
+        light: "#ffe4e6",
+      },
+      safelist: [
+        "animate-[fade-in_1s_ease-in-out]",
+        "animate-[fade-out_1s_ease-in-out]",
+      ],
+    },
+  },
+  plugins: [require("tw-elements/dist/plugin")],
+};
