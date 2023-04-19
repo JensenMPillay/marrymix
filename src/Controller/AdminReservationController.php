@@ -8,14 +8,10 @@ use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/reservation", name="app_admin_reservation")
- */
+#[Route(path: '/admin/reservation', name: 'app_admin_reservation')]
 class AdminReservationController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function reservation(ReservationRepository $reservationRepository)
     {
         $reservations = $reservationRepository->findAll();
@@ -23,9 +19,7 @@ class AdminReservationController extends AbstractController
         return $this->render("admin/admin_reservation/reservation.html.twig", ["reservations" => $reservations]);
     }
 
-    /**
-     * @Route("reservation/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function reservationDelete(ManagerRegistry $managerRegistry, Reservation $reservation = null)
     {
         if ($reservation) {

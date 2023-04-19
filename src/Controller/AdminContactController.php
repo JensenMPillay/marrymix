@@ -11,11 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/contact", name="app_admin_contact")
  */
+#[Route(path: '/admin/contact', name: 'app_admin_contact')]
 class AdminContactController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function contact(ContactRepository $contactRepository)
     {
         $contacts = $contactRepository->findAll();
@@ -23,9 +22,7 @@ class AdminContactController extends AbstractController
         return $this->render("admin/admin_contact/contact.html.twig", ["contacts" => $contacts]);
     }
 
-    /**
-     * @Route("contact/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function contactDelete(ManagerRegistry $managerRegistry, Contact $contact = null)
     {
         if ($contact) {

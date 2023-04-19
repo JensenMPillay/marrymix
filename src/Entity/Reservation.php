@@ -7,53 +7,35 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ReservationRepository::class)
- */
+#[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\User $user = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Bundle::class, inversedBy="reservations")
-     */
-    private $bundle;
+    #[ORM\ManyToMany(targetEntity: Bundle::class, inversedBy: 'reservations')]
+    private \Doctrine\Common\Collections\Collection|array $bundle;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $startDate;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $startDate = null;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $endDate;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $endDate = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $guests;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER, nullable: true)]
+    private ?int $guests = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $updatedAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {

@@ -1,0 +1,3 @@
+symfony console make:user
+symfony console make:registration-form
+symfony console make:auth

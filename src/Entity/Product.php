@@ -7,66 +7,48 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
- */
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $carousel = [];
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::ARRAY, nullable: true)]
+    private ?array $carousel = [];
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $price;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    private ?float $price = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $quantity;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER, nullable: true)]
+    private ?int $quantity = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $updatedAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
-     */
-    private $category;
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
+    private ?\App\Entity\Category $category = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Bundle::class, inversedBy="products")
-     */
-    private $bundle;
+    #[ORM\ManyToMany(targetEntity: Bundle::class, inversedBy: 'products')]
+    private \Doctrine\Common\Collections\Collection|array $bundle;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
+    private Collection $orderItem;
 
     public function __construct()
     {
         $this->bundle = new ArrayCollection();
+        $this->orderItem = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +172,36 @@ class Product
     public function removeBundle(Bundle $bundle): self
     {
         $this->bundle->removeElement($bundle);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderItem>
+     */
+    public function getOrderItem(): Collection
+    {
+        return $this->orderItem;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItem->contains($orderItem)) {
+            $this->orderItem->add($orderItem);
+            $orderItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItem->removeElement($orderItem)) {
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getProduct() === $this) {
+                $orderItem->setProduct(null);
+            }
+        }
 
         return $this;
     }

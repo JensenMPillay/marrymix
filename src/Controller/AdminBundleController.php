@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bundle;
-use App\Service\HandleFile;
+use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\BundleType;
 use App\Repository\BundleRepository;
@@ -13,14 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- * @Route("/admin/bundle", name="app_admin_bundle")
- */
+#[Route(path: '/admin/bundle', name: 'app_admin_bundle')]
 class AdminBundleController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function bundle(BundleRepository $bundleRepo)
     {
         $bundles = $bundleRepo->findAll();
@@ -28,10 +24,8 @@ class AdminBundleController extends AbstractController
         return $this->render("admin/admin_bundle/bundle.html.twig", ["bundles" => $bundles]);
     }
 
-    /**
-     * @Route("/create", name="_create")
-     */
-    public function bundleCreate(Bundle $bundle = null, Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, HandleFile $handleFile)
+    #[Route(path: '/create', name: '_create')]
+    public function bundleCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Bundle $bundle = null)
     {
         $bundle = new Bundle;
 
@@ -52,7 +46,7 @@ class AdminBundleController extends AbstractController
             for ($i = 0; $i < 5; $i++) {
                 $imageFile = $form->get("image" . $i)->getData();
                 if ($imageFile) {
-                    $carouselImages[] = $handleFile->uploadImage($imageFile, $slugger, $directoryName);
+                    $carouselImages[] = $fileService->uploadImage($imageFile, $slugger, $directoryName);
                 }
             }
 
@@ -78,10 +72,8 @@ class AdminBundleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/edit/{id}", name="_edit", requirements={"id"="\d+"})
-     */
-    public function bundleEdit(Bundle $bundle = null, Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, HandleFile $handleFile)
+    #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
+    public function bundleEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Bundle $bundle = null)
     {
         // is Bundle ? 
         if (!$bundle) {
@@ -112,7 +104,7 @@ class AdminBundleController extends AbstractController
                             unlink($fileExisting);
                         }
                     };
-                    $carouselImages[$i] = $handleFile->uploadImage($imageFile, $slugger, $directoryName);
+                    $carouselImages[$i] = $fileService->uploadImage($imageFile, $slugger, $directoryName);
                 };
             }
 
@@ -138,9 +130,7 @@ class AdminBundleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function bundleDelete(ManagerRegistry $managerRegistry, Bundle $bundle = null)
     {
         if ($bundle) {

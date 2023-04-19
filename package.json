@@ -26,6 +26,7 @@
         "@popperjs/core": "^2.11.6",
         "autoprefixer": "^10.4.13",
         "css-loader": "^6.7.3",
+        "flowbite": "^1.6.3",
         "popper.js": "^1.16.1",
         "postcss-loader": "^7.0.2",
         "sass": "^1.58.2",

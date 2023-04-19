@@ -1,47 +1,52 @@
 {% extends 'baseAdmin.html.twig' %}
 
 {% block body %}
-	<div class="row p-2 p-sm-5">
-		<div class="col-md-12">
-			<div class="card text-bg-info">
-				<div class="card-header">
-					<h4 class="card-title text-primary">Contact Management</h4>
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Contacts Management
 				</div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table text-light">
-							<thead class="text-primary text-uppercase">
-								<tr>
-									<th>ID</th>
-									<th>Email</th>
-									<th>Subject</th>
-									<th>Content</th>
-									<th>CreatedAt</th>
-									<th class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for contact in contacts %}
-									<tr>
-										<td>{{ contact.id }}</td>
-										<td>{{ contact.email }}</td>
-										<td>{{ contact.subject }}</td>
-										<td>{{ contact.content }}</td>
-										<td>{{ contact.createdAt|date('Y-m-d H:i:s') }}</td>
-										<td>
-											<div class="btn-group" role="group">
-												<a href="{{ path('app_admin_contact_delete', {'id': contact.id}) }}" class="btn btn-sm btn-danger m-1" onclick="return confirm('Are you sure?')">
-													Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
+			</div>
+			<div class="card-body p-3">
+				<div class="flex flex-col table-responsive overflow-x-auto lg-rounded">
+					<div class="sm:-mx-1 lg:-mx-2">
+						<div class="inline-block min-w-full py-2 sm:px-3 lg:px-4">
+							<div class="overflow-x-auto">
+								<table class="min-w-full text-left text-sm font-light">
+									<thead class="border-b text-primary-700 text-center">
+										<tr>
+											<th scope="col" class="px-3 py-2">ID</th>
+											<th scope="col" class="px-3 py-2">Email</th>
+											<th scope="col" class="px-3 py-2">Subject</th>
+											<th scope="col" class="px-3 py-2">Content</th>
+											<th scope="col" class="px-3 py-2">Created At</th>
+											<th scope="col" class="px-3 py-2">Actions</th>
+										</tr>
+									</thead>
+									<tbody class="text-secondary-200 text-center">
+										{% for contact in contacts %}
+											<tr class="border-b">
+												<td class="whitespace-nowrap px-3 py-2 font-medium">{{ contact.id }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ contact.email }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ contact.subject }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ contact.content }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ contact.createdAt|date('Y-m-d H:i:s') }}</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													<a href="{{ path('app_admin_contact_delete', {'id': contact.id}) }}" class="btn btn-secondary btn-sm m-1" onclick="return confirm('Are you sure?')">
+														Delete
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4"></div>
 		</div>
 	</div>
 {% endblock %}

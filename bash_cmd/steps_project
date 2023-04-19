@@ -1,0 +1,24 @@
+1. Création de projet 
+symfony new --webapp my_project --version="5.4.*" (WEBAPP)
+
+2. Configuration du fichier .env 
+Environnement : dev
+Config BDD
+
+3. Création BDD
+symfony console doctrine:database:create
+
+4. Création Entity
+symfony console make:entity
+symfony console make:migration
+symfony console doctrine:migrations:migrate
+
+5. Création Controller
+symphony console make:controller
+
+6. Création Form
+symfony console make:form
+Modification config/packages/twig/yaml : form_themes: ['bootstrap_5_layout.html.twig']
+
+7. Vérification routes
+symfony console debug:router --env=prod

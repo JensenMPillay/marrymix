@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class HandleFile extends AbstractController
+class FileService extends AbstractController
 {
     public function uploadImage(UploadedFile $imageFile, SluggerInterface $slugger, $directoryName)
     {
@@ -21,7 +21,7 @@ class HandleFile extends AbstractController
                 $this->getParameter($directoryName),
                 $newFilename
             );
-        } catch (FileException $e) {
+        } catch (FileException) {
             // ... handle exception if something happens during file upload
         }
 

@@ -1,0 +1,1 @@
+symfony console debug:router --env=prod

@@ -6,94 +6,68 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
+    private array $roles = [];
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    private ?string $password = null;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @var string|null The plain password
      */
-    private $email;
+    private ?string $confirmPassword = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $lastName = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    private ?string $postalCode = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
-     * @ORM\Column(type="json")
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Comment>|\App\Entity\Comment[]
      */
-    private $roles = [];
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user', orphanRemoval: true)]
+    private \Doctrine\Common\Collections\Collection|array $comments;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Reservation>|\App\Entity\Reservation[]
      */
-    private $password;
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user')]
+    private \Doctrine\Common\Collections\Collection|array $reservations;
 
-    /**
-     */
-    private $confirmPassword;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lastName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $address;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $postalCode;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $comments;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="user")
-     */
-    private $reservations;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    private bool $isVerified = false;
 
     public function __construct()
     {
@@ -118,20 +92,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUsername()
+    {
+    }
     /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
      */
     public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
-    /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-     */
-    public function getUsername(): string
     {
         return (string) $this->email;
     }

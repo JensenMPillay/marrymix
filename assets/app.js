@@ -14,3 +14,5 @@ import "./js/admin.js";
 
 // start the Stimulus application
 import "tw-elements";
+
+import "flowbite";

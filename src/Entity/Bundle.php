@@ -7,62 +7,43 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=BundleRepository::class)
- */
+#[ORM\Entity(repositoryClass: BundleRepository::class)]
 class Bundle
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::ARRAY, nullable: true)]
+    private ?array $carousel = [];
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    private ?float $price = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'bundle')]
+    private \Doctrine\Common\Collections\Collection|array $products;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Comment>|\App\Entity\Comment[]
      */
-    private $name;
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'bundle', orphanRemoval: true)]
+    private \Doctrine\Common\Collections\Collection|array $comments;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $carousel = [];
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $price;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="bundle")
-     */
-    private $products;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="bundle", orphanRemoval=true)
-     */
-    private $comments;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Reservation::class, mappedBy="bundle")
-     */
-    private $reservations;
+    #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'bundle')]
+    private \Doctrine\Common\Collections\Collection|array $reservations;
 
     public function __construct()
     {

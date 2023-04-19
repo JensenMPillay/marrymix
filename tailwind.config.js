@@ -5,6 +5,7 @@ module.exports = {
     "./templates/**/*.html.twig",
     "./assets/js/**/*.js",
     "./assets/js/**/*.jsx",
+    "./node_modules/flowbite/**/*.js",
     ".node_modules/tw-elements/dist/js/**/*/.js",
   ],
   theme: {
@@ -56,5 +57,5 @@ module.exports = {
       ],
     },
   },
-  plugins: [require("tw-elements/dist/plugin")],
+  plugins: [require("tw-elements/dist/plugin"), require("flowbite/plugin")],
 };

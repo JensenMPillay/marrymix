@@ -1,83 +1,81 @@
 {% extends 'baseAdmin.html.twig' %}
 
 {% block body %}
-	<div class="row p-2 p-sm-5">
-		<div class="col-md-12">
-			<div class="card text-bg-info">
-				<div class="card-header">
-					<h4 class="card-title text-primary">Users Management</h4>
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Users Management
 				</div>
-				{# Modal #}
-				<!-- Modal -->
-				<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="userModalLabel">User</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="card-body p-3">
+				<div class="flex flex-col table-responsive overflow-x-auto lg-rounded">
+					<div class="sm:-mx-1 lg:-mx-2">
+						<div class="inline-block min-w-full py-2 sm:px-3 lg:px-4">
+							<div class="overflow-x-auto">
+								<table class="min-w-full text-left text-sm font-light">
+									<thead class="border-b text-primary-700 text-center">
+										<tr>
+											<th scope="col" class="px-3 py-2">ID</th>
+											<th scope="col" class="px-3 py-2">Roles</th>
+											<th scope="col" class="px-3 py-2">Lastname</th>
+											<th scope="col" class="px-3 py-2">FirstName</th>
+											<th scope="col" class="px-3 py-2">Email</th>
+											<th scope="col" class="px-3 py-2">Address</th>
+											<th scope="col" class="px-3 py-2">City</th>
+											<th scope="col" class="px-3 py-2">Postal Code</th>
+											<th scope="col" class="px-3 py-2">is Verified</th>
+											<th scope="col" class="px-3 py-2">Created At</th>
+											<th scope="col" class="px-3 py-2">Updated At</th>
+											<th scope="col" class="px-3 py-2">Actions</th>
+										</tr>
+									</thead>
+									<tbody class="text-secondary-200 text-center">
+										{% for user in users %}
+											<tr class="border-b">
+												<td class="whitespace-nowrap px-3 py-2 font-medium">{{ user.id }}</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													{% for role in user.roles %}
+														{{ role|replace({'ROLE_': ''}) }}
+														{% if not loop.last %}
+															,
+														{% endif %}
+													{% endfor %}
+												</td>
+												<td class="whitespace-nowrap px-3 py-2 font-medium">{{ user.lastName }}</td>
+												<td class="whitespace-nowrap px-3 py-2 font-medium">{{ user.firstName }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ user.email }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ user.address }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ user.city }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ user.postalCode }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ user.isVerified }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ user.createdAt|date('Y-m-d H:i:s') }}</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													{% if user.updatedAt %}
+														{{ user.updatedAt|date('Y-m-d H:i:s') }}
+													{% endif %}
+												</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-secondary btn-sm m-1">
+														Edit
+													</a>
+													<a href="{{ path('app_admin_user_delete', {'id': user.id}) }}" class="btn btn-secondary btn-sm m-1" onclick="return confirm('Are you sure?')">
+														Delete
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
 							</div>
-							<div class="modal-body"></div>
 						</div>
 					</div>
 				</div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table text-light">
-							<thead class="text-primary text-uppercase">
-								<tr>
-									<th>ID</th>
-									<th>Lastname</th>
-									<th>Firstname</th>
-									<th>Email</th>
-									<th>Roles</th>
-									<th>Address</th>
-									<th>City</th>
-									<th>Postal Code</th>
-									<th>Created At</th>
-									<th>Updated At</th>
-									<th>Is Verified</th>
-									<th class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for user in users %}
-									<tr>
-										<td>{{ user.id }}</td>
-										<td>{{ user.lastname }}</td>
-										<td>{{ user.firstname }}</td>
-										<td>{{ user.email }}</td>
-										<td>{{ user.roles|join(', ') }}</td>
-										<td>{{ user.address }}</td>
-										<td>{{ user.city }}</td>
-										<td>{{ user.postalcode }}</td>
-										<td>{{ user.createdAt|date('Y-m-d H:i:s') }}</td>
-										<td>
-											{% if user.updatedAt %}
-												{{ user.updatedAt|date('Y-m-d H:i:s') }}
-											{% endif %}
-										</td>
-										<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-										<td>
-											<div class="btn-group" role="group">
-												<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-warning m-1" data-toggle="modal" data-target="#userModal">
-													Edit
-												</a>
-												<a href="{{ path('app_admin_user_delete', {'id': user.id}) }}" class="btn btn-sm btn-danger m-1" onclick="return confirm('Are you sure?')">
-													Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="card-footer text-center">
-					<a id="createBtnModal" href="{{ path('app_admin_user_create') }}" class="btn btn-primary" data-toggle="modal" data-target="#userModal">
-						Create
-					</a>
-				</div>
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4">
+				<a id="createBtnModal" href="{{ path('app_admin_user_create') }}" class="btn btn-primary">
+					Create
+				</a>
 			</div>
 		</div>
 	</div>

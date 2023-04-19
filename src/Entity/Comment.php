@@ -5,49 +5,33 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=CommentRepository::class)
- */
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\User $user = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    private ?string $content = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $note;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $note = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Bundle::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $bundle;
+    #[ORM\ManyToOne(targetEntity: Bundle::class, inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\Bundle $bundle = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $updatedAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {

@@ -8,14 +8,10 @@ use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/comment", name="app_admin_comment")
- */
+#[Route(path: '/admin/comment', name: 'app_admin_comment')]
 class AdminCommentController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function comment(CommentRepository $commentRepository)
     {
         $comments = $commentRepository->findAll();
@@ -23,9 +19,7 @@ class AdminCommentController extends AbstractController
         return $this->render("admin/admin_comment/comment.html.twig", ["comments" => $comments]);
     }
 
-    /**
-     * @Route("comment/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function commentDelete(ManagerRegistry $managerRegistry, Comment $comment = null)
     {
         if ($comment) {

@@ -1,0 +1,84 @@
+<nav class="sidebar" tabindex="-1">
+	<div class="logo-details">
+		<i class='bx bxl-c-plus-plus icon' id="logo_icon"></i>
+		<div class="logo_name" id="sidebarCanvasLabel">BollyEvents</div>
+		<i class='bx bx-menu' id="menuBtn"></i>
+		<button type="button" class="btn-close">
+			<i class='bx bx-plus'></i>
+		</button>
+	</div>
+	<ul class="nav-list">
+		<li class="flex items-center">
+			<i class='bx bx-search'></i>
+			<input type="text" placeholder="Search...">
+			<span class="tooltip">Search</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_') }}" class="nav_link flex items-center">
+				<i class='bx bx-grid-alt'></i>
+				<span class="links_name ml-2">Dashboard</span>
+			</a>
+			<span class="tooltip">Dashboard</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_user') }}" class="nav_link flex items-center">
+				<i class='bx bx-user'></i>
+				<span class="links_name ml-2">User</span>
+			</a>
+			<span class="tooltip">User</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_category') }}" class="nav_link flex items-center">
+				<i class='bx bx-folder'></i>
+				<span class="links_name ml-2">Category</span>
+			</a>
+			<span class="tooltip">Category</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_product') }}" class="nav_link flex items-center">
+				<i class='bx bx-folder'></i>
+				<span class="links_name ml-2">Product</span>
+			</a>
+			<span class="tooltip">Product</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_bundle') }}" class="nav_link flex items-center">
+				<i class='bx bx-folder'></i>
+				<span class="links_name ml-2">Bundle</span>
+			</a>
+			<span class="tooltip">Bundle</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_reservation') }}" class="nav_link flex items-center">
+				<i class='bx bx-cart-alt'></i>
+				<span class="links_name ml-2">Reservation</span>
+			</a>
+			<span class="tooltip">Reservation</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_comment') }}" class="nav_link flex items-center">
+				<i class='bx bx-chat'></i>
+				<span class="links_name ml-2">Comment</span>
+			</a>
+			<span class="tooltip">Comment</span>
+		</li>
+		<li>
+			<a href="{{ path('app_admin_contact') }}" class="nav_link flex items-center">
+				<i class='bx bx-chat'></i>
+				<span class="links_name ml-2">Contact</span>
+			</a>
+			<span class="tooltip">Contact</span>
+		</li>
+		<li class="profile">
+			<div
+				class="profile-details">
+				<!--<img src="profile.jpg" alt="profileImg">-->
+				<div class="name_job">
+					<div class="name">Prem Chopra</div>
+					<div class="job">Web designer</div>
+				</div>
+			</div>
+			<i class='bx bx-log-out' id="log_out"></i>
+		</li>
+	</ul>
+</nav>

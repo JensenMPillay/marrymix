@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Service\HandleFile;
+use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -14,14 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- * @Route("/admin/category", name="app_admin_category")
- */
+#[Route(path: '/admin/category', name: 'app_admin_category')]
 class AdminCategoryController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function category(CategoryRepository $categoryRepo)
     {
         $categories = $categoryRepo->findAll();
@@ -29,10 +25,8 @@ class AdminCategoryController extends AbstractController
         return $this->render("admin/admin_category/category.html.twig", ["categories" => $categories]);
     }
 
-    /**
-     * @Route("/create", name="_create")
-     */
-    public function categoryCreate(Category $category = null, Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, HandleFile $handleFile)
+    #[Route(path: '/create', name: '_create')]
+    public function categoryCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Category $category = null)
     {
         $category = new Category;
 
@@ -52,15 +46,15 @@ class AdminCategoryController extends AbstractController
 
             $imageFile1 = $form->get('image1')->getData();
             if ($imageFile1) {
-                $carouselImages[] = $handleFile->uploadImage($imageFile1, $slugger, $directoryName);
+                $carouselImages[] = $fileService->uploadImage($imageFile1, $slugger, $directoryName);
             }
             $imageFile2 = $form->get('image2')->getData();
             if ($imageFile2) {
-                $carouselImages[] = $handleFile->uploadImage($imageFile2, $slugger, $directoryName);
+                $carouselImages[] = $fileService->uploadImage($imageFile2, $slugger, $directoryName);
             }
             $imageFile3 = $form->get('image3')->getData();
             if ($imageFile3) {
-                $carouselImages[] = $handleFile->uploadImage($imageFile3, $slugger, $directoryName);
+                $carouselImages[] = $fileService->uploadImage($imageFile3, $slugger, $directoryName);
             }
 
             // Update carousel images
@@ -85,10 +79,8 @@ class AdminCategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/edit/{id}", name="_edit", requirements={"id"="\d+"})
-     */
-    public function categoryEdit(Category $category = null, Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, HandleFile $handleFile)
+    #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
+    public function categoryEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Category $category = null)
     {
         // is Category ? 
         if (!$category) {
@@ -121,7 +113,7 @@ class AdminCategoryController extends AbstractController
                         unlink($fileExisting1);
                     }
                 };
-                $carouselImages[0] = $handleFile->uploadImage($imageFile1, $slugger, $directoryName);
+                $carouselImages[0] = $fileService->uploadImage($imageFile1, $slugger, $directoryName);
             };
             $imageFile2 = $form->get('image2')->getData();
             if ($imageFile2) {
@@ -131,7 +123,7 @@ class AdminCategoryController extends AbstractController
                         unlink($fileExisting2);
                     };
                 };
-                $carouselImages[1] = $handleFile->uploadImage($imageFile2, $slugger, $directoryName);
+                $carouselImages[1] = $fileService->uploadImage($imageFile2, $slugger, $directoryName);
             };
             $imageFile3 = $form->get('image3')->getData();
             if ($imageFile3) {
@@ -141,7 +133,7 @@ class AdminCategoryController extends AbstractController
                         unlink($fileExisting3);
                     };
                 }
-                $carouselImages[2] = $handleFile->uploadImage($imageFile3, $slugger, $directoryName);
+                $carouselImages[2] = $fileService->uploadImage($imageFile3, $slugger, $directoryName);
             };
 
 
@@ -167,9 +159,7 @@ class AdminCategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function categoryDelete(ManagerRegistry $managerRegistry, Category $category = null)
     {
         if ($category) {

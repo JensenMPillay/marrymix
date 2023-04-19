@@ -1,0 +1,9 @@
+composer create-project symfony/skeleton my-project
+
+composer create-project symfony/website-skeleton my-project
+
+--install scoop--
+
+symfony new my_project --version="5.4.*" (API)
+
+symfony new --webapp my_project --version="5.4.*" (WEBAPP)

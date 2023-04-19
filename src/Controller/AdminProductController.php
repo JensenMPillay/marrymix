@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Service\HandleFile;
+use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -13,14 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- * @Route("/admin/product", name="app_admin_product")
- */
+#[Route(path: '/admin/product', name: 'app_admin_product')]
 class AdminProductController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function product(ProductRepository $productRepo)
     {
         $products = $productRepo->findAll();
@@ -28,10 +24,8 @@ class AdminProductController extends AbstractController
         return $this->render("admin/admin_product/product.html.twig", ["products" => $products]);
     }
 
-    /**
-     * @Route("/create", name="_create")
-     */
-    public function productCreate(Product $product = null, Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, HandleFile $handleFile)
+    #[Route(path: '/create', name: '_create')]
+    public function productCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Product $product = null)
     {
         $product = new Product;
 
@@ -52,7 +46,7 @@ class AdminProductController extends AbstractController
             for ($i = 0; $i < 5; $i++) {
                 $imageFile = $form->get("image" . $i)->getData();
                 if ($imageFile) {
-                    $carouselImages[] = $handleFile->uploadImage($imageFile, $slugger, $directoryName);
+                    $carouselImages[] = $fileService->uploadImage($imageFile, $slugger, $directoryName);
                 }
             }
 
@@ -78,10 +72,8 @@ class AdminProductController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/edit/{id}", name="_edit", requirements={"id"="\d+"})
-     */
-    public function productEdit(Product $product = null, Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, HandleFile $handleFile)
+    #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
+    public function productEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Product $product = null)
     {
         // is Product ? 
         if (!$product) {
@@ -116,7 +108,7 @@ class AdminProductController extends AbstractController
                             unlink($fileExisting);
                         }
                     };
-                    $carouselImages[$i] = $handleFile->uploadImage($imageFile, $slugger, $directoryName);
+                    $carouselImages[$i] = $fileService->uploadImage($imageFile, $slugger, $directoryName);
                 };
             }
 
@@ -142,9 +134,7 @@ class AdminProductController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function productDelete(ManagerRegistry $managerRegistry, Product $product = null)
     {
         if ($product) {

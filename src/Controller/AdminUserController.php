@@ -14,15 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
-/**
- * @Route("/admin/user", name="app_admin_user")
- */
+#[Route(path: '/admin/user', name: 'app_admin_user')]
 class AdminUserController extends AbstractController
 {
-    /**
-     * @Route("/", name="")
-     */
+    #[Route(path: '/', name: '')]
     public function user(UserRepository $userRepo)
     {
         $users = $userRepo->findAll();
@@ -30,10 +25,8 @@ class AdminUserController extends AbstractController
         return $this->render("admin/admin_user/user.html.twig", ["users" => $users]);
     }
 
-    /**
-     * @Route("/create", name="_create")
-     */
-    public function userCreate(User $user = null, Request $request, ManagerRegistry $managerRegistry, UserPasswordHasherInterface $userPasswordHasher, FormFactoryInterface $formFactory)
+    #[Route(path: '/create', name: '_create')]
+    public function userCreate(Request $request, ManagerRegistry $managerRegistry, UserPasswordHasherInterface $userPasswordHasher, FormFactoryInterface $formFactory, User $user = null)
     {
         $user = new User;
 
@@ -87,10 +80,8 @@ class AdminUserController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/edit/{id}", name="_edit", requirements={"id"="\d+"})
-     */
-    public function userEdit(User $user = null, Request $request, ManagerRegistry $managerRegistry, FormFactoryInterface $formFactory)
+    #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
+    public function userEdit(Request $request, ManagerRegistry $managerRegistry, FormFactoryInterface $formFactory, User $user = null)
     {
         // is User ? 
         if (!$user) {
@@ -145,9 +136,7 @@ class AdminUserController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/delete/{id}", name="_delete", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
     public function userDelete(ManagerRegistry $managerRegistry, User $user = null)
     {
         if ($user) {

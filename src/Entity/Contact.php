@@ -5,37 +5,25 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ContactRepository::class)
- */
+#[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $subject;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $subject = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    private ?string $content = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?int
     {
