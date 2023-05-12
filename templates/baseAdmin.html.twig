@@ -17,48 +17,9 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 	</head>
-	<body id="body" class="bg-secondary-900 font-Poppins">
+	<body id="body" class="bg-secondary-900 font-poppins">
 		{% block flash %}
-			{# Affichage Message Flash #}
-			{% for key, message in app.flashes %}
-				{% if key matches '/success/i' %}
-					<div class="alert alert-success" role="alert" data-te-alert-init data-te-alert-show>
-						<strong class="ml-auto">{{message[0]}}
-						</strong>
-						<button type="button" class="alert-btn-close" data-te-alert-dismiss aria-label="Close">
-							<span class="alert-btn-close-span">
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-									<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-								</svg>
-							</span>
-						</button>
-					</div>
-				{% elseif key matches '/warning/i'%}
-					<div class="alert alert-warning" role="alert" data-te-alert-init data-te-alert-show>
-						<strong class="ml-auto">{{message[0]}}
-						</strong>
-						<button type="button" class="alert-btn-close" data-te-alert-dismiss aria-label="Close">
-							<span class="alert-btn-close-span">
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-									<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-								</svg>
-							</span>
-						</button>
-					</div>
-				{% elseif key matches '/danger/i'%}
-					<div class="alert alert-danger" role="alert" data-te-alert-init data-te-alert-show>
-						<strong class="ml-auto">{{message[0]}}
-						</strong>
-						<button type="button" class="alert-btn-close" data-te-alert-dismiss aria-label="Close">
-							<span class="alert-btn-close-span">
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-									<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-								</svg>
-							</span>
-						</button>
-					</div>
-				{% endif %}
-			{% endfor %}
+			{{include('admin/_partials/flashAdmin.html.twig')}}
 		{% endblock %}
 		<header>
 			{% block header %}
@@ -68,8 +29,8 @@
 				{{include('admin/_partials/navbarAdmin.html.twig')}}
 			{% endblock %}
 		</header>
-		<section class="content"> {% block body %}{% endblock %}
-			</section>
+		<main class="content"> {% block body %}{% endblock %}
+			</main>
 			<footer>
 				{% block footer %}{% endblock %}
 			</footer>
