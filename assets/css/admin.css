@@ -1,5 +1,3 @@
-/* Google Font Link */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 :root {
   --header-height: 3rem;
   --nav-width: 68px;
@@ -7,7 +5,6 @@
   --second-color: #11101d;
   --third-color: #1d1d2e;
   --white-color: #ffffff;
-  --body-font: "Poppins", sans-serif;
   --normal-font-size: 1rem;
   --weight-font: 600;
   --z-fixed: 100;
@@ -310,6 +307,7 @@
   font-weight: 500;
 }
 /* HEADER  */
+
 /* CONTENT  */
 .content {
   position: relative;

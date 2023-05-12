@@ -1,0 +1,129 @@
+<!-- Navigation bar -->
+<nav class="flex-no-wrap relative flex w-full items-center justify-between bg-neutral-100 py-2 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4" data-te-navbar-ref>
+	<div
+		class="flex w-full flex-wrap items-center justify-between px-3">
+		<!-- Hamburger button for mobile view -->
+		<button
+			class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200" type="button" data-te-collapse-init data-te-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+			<!-- Hamburger icon -->
+			<span class="[&>svg]:w-7">
+				<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-7 w-7">
+					<path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd"/>
+				</svg>
+			</span>
+		</button>
+
+		<!-- Collapsible navigation container -->
+		<div
+			class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto" id="navbarSupportedContent1" data-te-collapse-item>
+			<!-- Logo -->
+			<a class="mb-4 mr-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0" href="#">
+				<img src="{{ asset('images/bollyevents-logo.png') }}" class="h-20 w-20" alt="logo" loading="lazy"/>
+			</a>
+			<!-- Left navigation links -->
+			<ul class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row" data-te-navbar-nav-ref>
+				<li
+					class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+					<!-- Dashboard link -->
+					<a class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400" href="#" data-te-nav-link-ref>Dashboard</a>
+				</li>
+				<!-- Team link -->
+				<li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+					<a class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="#" data-te-nav-link-ref>Team</a>
+				</li>
+				<!-- Projects link -->
+				<li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+					<a class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="#" data-te-nav-link-ref>Projects</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Right elements -->
+		<div
+			class="relative flex items-center">
+			<!-- Cart Icon -->
+			<a class="mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="#">
+				<span class="[&>svg]:w-5">
+					<svg class="h-icon" width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M15.8613 15.184L11.973 11.2958C13.016 10.0967 13.6475 8.53215 13.6475 6.82217C13.6475 3.05809 10.5859 0 6.82535 0C3.06127 0 0.00317383 3.06164 0.00317383 6.82217C0.00317383 10.5827 3.06482 13.6443 6.82535 13.6443C8.53533 13.6443 10.0998 13.0129 11.299 11.9698L15.1872 15.8581C15.2795 15.9503 15.4036 16 15.5242 16C15.6449 16 15.769 15.9539 15.8613 15.8581C16.0457 15.6736 16.0457 15.3685 15.8613 15.184ZM0.957498 6.82217C0.957498 3.5867 3.58987 0.957871 6.8218 0.957871C10.0573 0.957871 12.6861 3.59024 12.6861 6.82217C12.6861 10.0541 10.0573 12.69 6.8218 12.69C3.58987 12.69 0.957498 10.0576 0.957498 6.82217Z" fill="black"></path>
+					</svg>
+				</span>
+			</a>
+
+			<!-- Container with two dropdown menus -->
+			<div
+				class="relative" data-te-dropdown-ref>
+				<!-- First dropdown trigger -->
+				<a
+					class="hidden-arrow mr-4 flex items-center text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="#" id="dropdownMenuButton1" role="button" data-te-dropdown-toggle-ref aria-expanded="false">
+					<!-- Dropdown trigger icon -->
+					<span class="[&>svg]:w-5">
+						<svg class="h-icon" width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M7.99953 8C5.79396 8 3.99951 6.20558 3.99951 3.99999C3.99951 1.79439 5.79396 0 7.99953 0C10.2051 0 11.9995 1.79442 11.9995 4.00001C11.9995 6.20561 10.2051 8 7.99953 8ZM7.99953 1.00001C6.34524 1.00001 4.99952 2.3457 4.99952 4.00001C4.99952 5.65433 6.34521 7.00002 7.99953 7.00002C9.65384 7.00002 10.9995 5.6543 10.9995 4.00001C10.9995 2.34573 9.65381 1.00001 7.99953 1.00001Z" fill="black"></path>
+							<path d="M14.5005 16.0003H1.50049C1.22412 16.0003 1.00049 15.7766 1.00049 15.5003V12.0584C1.00049 11.5418 1.26464 11.0564 1.68946 10.7908C5.44433 8.44848 10.5601 8.44897 14.3111 10.7903C14.7363 11.0564 15.0005 11.5418 15.0005 12.0583V15.5002C15.0005 15.7767 14.7769 16.0003 14.5005 16.0003ZM2.0005 15.0003H14.0005V12.0584C14.0005 11.8841 13.9165 11.7229 13.7813 11.6385C10.3481 9.49541 5.65527 9.49393 2.21928 11.639C2.08452 11.723 2.00053 11.8841 2.00053 12.0584L2.0005 15.0003Z" fill="black"></path>
+						</svg>
+					</span>
+
+				</a>
+				<!-- First dropdown menu -->
+				<ul
+					class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
+					<!-- First dropdown menu items -->
+					<li>
+						<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30" href="#" data-te-dropdown-item-ref>Action</a>
+					</li>
+					<li>
+						<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30" href="#" data-te-dropdown-item-ref>Another action</a>
+					</li>
+					<li>
+						<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30" href="#" data-te-dropdown-item-ref>Something else here</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Second dropdown container -->
+			<div
+				class="relative" data-te-dropdown-ref>
+				<!-- Second dropdown trigger -->
+				<a
+					class="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none" href="#" id="dropdownMenuButton2" role="button" data-te-dropdown-toggle-ref aria-expanded="false">
+					<!-- User avatar -->
+					<span class="[&>svg]:w-5">
+						<svg class="h-icon" width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M14 15.5H2L2.5 4.5H13.5L14 15.5Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+							<path d="M5.5 6.5V3C5.5 2.33696 5.76339 1.70107 6.23223 1.23223C6.70107 0.763392 7.33696 0.5 8 0.5C8.3283 0.5 8.65339 0.564664 8.95671 0.690301C9.26002 0.815938 9.53562 1.00009 9.76777 1.23223C9.99991 1.46438 10.1841 1.73998 10.3097 2.04329C10.4353 2.34661 10.5 2.6717 10.5 3V6.5" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+						</svg>
+					</span>
+					<!-- Notification counter -->
+					<span class="absolute -mt-2.5 ml-2 rounded-[0.37rem] bg-danger px-[0.45em] py-[0.2em] text-[0.6rem] leading-none text-white">1</span>
+				</a>
+				<!-- Second dropdown menu -->
+				<ul
+					class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton2" data-te-dropdown-menu-ref>
+					<!-- Second dropdown menu items -->
+					<li>
+						<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30" href="#" data-te-dropdown-item-ref>Action</a>
+					</li>
+					<li>
+						<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30" href="#" data-te-dropdown-item-ref>Another action</a>
+					</li>
+					<li>
+						<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30" href="#" data-te-dropdown-item-ref>Something else here</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<!-- Hero section with background image, heading, subheading and button -->
+<div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-cover bg-no-repeat" style="background-position: 190%;background-image: url('{{ asset('images/background-1.jpg') }}');">
+	<div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed" style="background-color: rgba(0, 0, 0, 0.75)">
+		<div class="flex h-full items-center justify-center">
+			<div class="px-6 text-center text-white md:px-12">
+				<h1 class="mb-6 text-5xl font-bold">Heading</h1>
+				<h3 class="mb-8 text-3xl font-bold">Subeading</h3>
+			</div>
+		</div>
+	</div>
+</div>

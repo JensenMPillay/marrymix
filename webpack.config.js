@@ -1,6 +1,7 @@
 const Encore = require("@symfony/webpack-encore");
 const webpack = require("webpack");
 const path = require("path");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -88,6 +89,15 @@ Encore
   .addPlugin(
     new webpack.ProvidePlugin({
       Popper: ["popper.js", "default"],
+    })
+  )
+
+  .addPlugin(
+    new BrowserSyncPlugin({
+      host: "localhost",
+      port: 3000,
+      proxy: "https://localhost:8000/",
+      files: ["./public/**/*"],
     })
   );
 
