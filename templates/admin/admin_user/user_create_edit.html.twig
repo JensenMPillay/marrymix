@@ -10,6 +10,6 @@
 {{ form_row(userForm.address, {'attr': { 'placeholder': "Address"}}) }}
 {{ form_row(userForm.city, {'attr': { 'placeholder': "City"}}) }}
 {{ form_row(userForm.postalCode, {'attr': { 'placeholder': "Postal Code"}}) }}
-<button type="submit" class="btn">{{ edit ? 'Update' : 'Create' }}</button>
+<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
 {{form_errors(userForm)}}
 {{ form_end(userForm) }}

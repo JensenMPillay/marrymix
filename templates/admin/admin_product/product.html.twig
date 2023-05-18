@@ -21,7 +21,7 @@
 											<th scope="col" class="px-3 py-2">Name</th>
 											<th scope="col" class="px-3 py-2">Carousel</th>
 											<th scope="col" class="px-3 py-2">Description</th>
-											<th scope="col" class="px-3 py-2">Bundles</th>
+											{# <th scope="col" class="px-3 py-2">Bundles</th> #}
 											<th scope="col" class="px-3 py-2">Created At</th>
 											<th scope="col" class="px-3 py-2">Updated At</th>
 											<th scope="col" class="px-3 py-2">Actions</th>
@@ -39,14 +39,14 @@
 													{% endfor %}
 												</td>
 												<td class="whitespace-nowrap px-3 py-2">{{ product.description }}</td>
-												<td class="whitespace-nowrap px-3 py-2">
-													{% for bundle in product.bundle %}
-														{{ bundle.name }}
-														{% if not loop.last %}
-															,
-														{% endif %}
-													{% endfor %}
-												</td>
+												{# <td class="whitespace-nowrap px-3 py-2">
+																									{% for bundle in product.bundle %}
+																										{{ bundle.name }}
+																										{% if not loop.last %}
+																											,
+																										{% endif %}
+																									{% endfor %}
+																								</td> #}
 												<td class="whitespace-nowrap px-3 py-2">{{ product.createdAt|date('Y-m-d H:i:s') }}</td>
 												<td class="whitespace-nowrap px-3 py-2">
 													{% if product.updatedAt %}
@@ -54,10 +54,10 @@
 													{% endif %}
 												</td>
 												<td class="whitespace-nowrap px-3 py-2">
-													<a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" class="btn btn-secondary btn-sm m-1">
+													<a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" class="btn-tw btn-secondary-tw btn-sm m-1">
 														Edit
 													</a>
-													<a href="{{ path('app_admin_product_delete', {'id': product.id}) }}" class="btn btn-secondary btn-sm m-1" onclick="return confirm('Are you sure?')">
+													<a href="{{ path('app_admin_product_delete', {'id': product.id}) }}" class="btn-tw btn-secondary-tw btn-sm m-1" onclick="return confirm('Are you sure?')">
 														Delete
 													</a>
 												</td>
@@ -71,7 +71,7 @@
 				</div>
 			</div>
 			<div class="card-footer border-t border-primary-800 py-2 px-4">
-				<a id="createBtnModal" href="{{ path('app_admin_product_create') }}" class="btn btn-primary">
+				<a id="createBtnModal" href="{{ path('app_admin_product_create') }}" class="btn-tw btn-primary-tw">
 					Create
 				</a>
 			</div>

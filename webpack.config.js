@@ -90,15 +90,17 @@ Encore
     new webpack.ProvidePlugin({
       Popper: ["popper.js", "default"],
     })
-  )
-
-  .addPlugin(
-    new BrowserSyncPlugin({
-      host: "localhost",
-      port: 3000,
-      proxy: "https://localhost:8000/",
-      files: ["./public/**/*"],
-    })
   );
+
+// BrowserSync Settings
+
+// .addPlugin(
+//   new BrowserSyncPlugin({
+//     host: "localhost",
+//     port: 3000,
+//     proxy: "https://localhost:8000/",
+//     files: ["./public/**/*"],
+//   })
+// );
 
 module.exports = Encore.getWebpackConfig();

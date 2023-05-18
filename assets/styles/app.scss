@@ -6,41 +6,77 @@
 @import "tailwindcss/utilities";
 @import "custom";
 @import "../css/admin.css";
+@import "../css/style.css";
+@import "../vendor/animate.css/animate.min.css";
+@import "../vendor/aos/aos.css";
+@import "../vendor/bootstrap-icons/bootstrap-icons.css";
+@import "../vendor/boxicons/css/boxicons.min.css";
+@import "../vendor/glightbox/css/glightbox.min.css";
+@import "../vendor/swiper/swiper-bundle.min.css";
 
 @font-face {
   font-family: "Samarkan";
   src: url("../fonts/SAMAN___.TTF") format("truetype");
 }
 
+@font-face {
+  font-family: "PlayfairDisplay";
+  src: url("../fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("../fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+}
+
 @layer components {
-  .alert {
+  .alert-tw {
     @apply mb-3 hidden w-full items-center rounded-lg data-[te-alert-show]:inline-flex;
   }
-  .alert-success {
+  .alert-success-tw {
     @apply bg-green-300 py-5 px-6 text-base text-green-800;
   }
-  .alert-warning {
+  .alert-warning-tw {
     @apply bg-orange-300 py-5 px-6 text-base text-orange-800;
   }
-  .alert-danger {
+  .alert-danger-tw {
     @apply bg-red-300 py-5 px-6 text-base text-red-800;
   }
-  .alert-btn-close {
+  .alert-btn-close-tw {
     @apply ml-auto box-content rounded-none border-none p-1 text-gray-900 opacity-50 hover:text-gray-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none;
   }
   .alert-btn-close-span {
     @apply w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25;
   }
-  .btn {
-    @apply m-2 inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal shadow transition duration-150 ease-in-out hover:shadow-md hover:shadow-primary-400/50 focus:shadow-md focus:shadow-primary-400/50 focus:outline-none focus:ring-0 active:shadow-md active:shadow-primary-400/50;
+  .btn-tw {
+    @apply m-2 inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal shadow transition duration-300 ease-in-out hover:shadow-md focus:shadow-md focus:outline-none  focus:ring-0  active:shadow-md;
   }
-  .btn-primary {
-    @apply bg-primary-500  text-white shadow-primary-400/50 hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700;
+  .btn-primary-tw {
+    @apply bg-primary-500 text-white hover:bg-secondary-900 hover:text-primary-500 hover:shadow-primary-400/50 focus:bg-secondary-900 focus:text-primary-500  focus:shadow-primary-400/50 active:bg-secondary-900 active:text-white active:shadow-white;
   }
-  .btn-secondary {
-    @apply bg-secondary-200 text-primary-700 shadow-primary-200/50 hover:bg-primary-accent-200 focus:bg-primary-accent-200 active:bg-primary-accent-200;
+  .btn-secondary-tw {
+    @apply bg-secondary-100 text-white hover:bg-primary-500 hover:text-secondary-900 hover:shadow-secondary-400/50 focus:bg-primary-500 focus:text-secondary-900  focus:shadow-secondary-400/50 active:bg-secondary-100 active:text-primary-700 active:shadow-secondary-400/50;
   }
-  .img-thumbnail {
+  .img-thumbnail-tw {
     @apply h-auto max-w-full rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30;
   }
+  .form-input-tw {
+    @apply rounded-none border-secondary-500 bg-secondary-900 text-white shadow-none placeholder:text-secondary-300 autofill:rounded-none autofill:border-secondary-500 autofill:bg-secondary-900 autofill:text-white autofill:shadow-none autofill:placeholder:text-secondary-300 hover:border-yellow-500 focus:border-yellow-500 focus:outline-none autofill:focus:border-yellow-500;
+  }
 }
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Custom variables
+$primary: #cda45e;
+$secondary: #0c0b09;
+
+// Override Bootstrap variables
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+);
+
+// Compile Bootstrap with custom variables
+@import "~bootstrap/scss/bootstrap";
