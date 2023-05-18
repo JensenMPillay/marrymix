@@ -38,8 +38,9 @@ class CategoryType extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
+                            'image/webp'
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PNG/JPEG',
+                        'mimeTypesMessage' => 'Please upload a valid PNG/JPEG/WEBP',
                     ])
                 ]
             ])
@@ -52,8 +53,9 @@ class CategoryType extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
+                            'image/webp'
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PNG/JPEG',
+                        'mimeTypesMessage' => 'Please upload a valid PNG/JPEG/WEBP',
                     ])
                 ]
             ])
@@ -66,8 +68,9 @@ class CategoryType extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
+                            'image/webp'
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PNG/JPEG',
+                        'mimeTypesMessage' => 'Please upload a valid PNG/JPEG/WEBP',
                     ])
                 ]
             ])

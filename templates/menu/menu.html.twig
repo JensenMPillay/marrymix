@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cocktail Menu
+{% endblock %}
+
+{% block body %}
+
+	<!-- ======= Menu Section ======= -->
+	<section id="menu" class="menu section-bg">
+		<div class="container" data-aos="fade-down">
+
+			<div class="section-title">
+				<h2>Menu</h2>
+			</div>
+
+			<div class="row" data-aos="fade-down" data-aos-delay="100">
+				<div class="col-lg-12 d-flex justify-content-center">
+					<ul id="menu-flters">
+						<li data-filter="*" class="filter-active">All</li>
+						{% for category in categories %}
+							<li data-filter=".filter-{{category.name}}">{{category.name}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="row menu-container" data-aos="fade-down" data-aos-delay="200">
+				{% for product in products %}
+					<div class="col-lg-6 menu-item filter-{{product.category.name}}">
+						<a href="{{'#' ~ product.id}}" id="{{product.id}}" class="product-link" data-product="{{product.json}}" data-modal-target="{{'productModal' ~ product.id}}" data-modal-toggle="{{'productModal' ~ product.id}}">
+							<img src="{{ asset('uploads/images_products/' ~ product.carousel[0]) }}" class="menu-img" alt="{{product.name}}"/>
+							<div class="menu-content">
+								<span class="product-name">{{product.name}}</span>
+								<span class="product-price">{{product.price ~ ' €'}}</span>
+							</div>
+							<div class="menu-ingredients">
+								{{product.description}}
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- End Menu Section -->
+
+	<!-- Main modal -->
+	{% for product in products %}
+		<div id="{{'productModal' ~ product.id}}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center">
+			<div
+				class="relative p-4 w-full max-w-xl h-full md:h-auto">
+				<!-- Modal content -->
+				<div
+					class="relative p-4 bg-third rounded-lg shadow dark:bg-gray-800 sm:p-5">
+					<!-- Modal header -->
+					<div class="flex justify-between mb-2 rounded-t sm:mb-3">
+						<div class="text-lg md:text-xl dark:text-white">
+							<h3 class="font-semibold  text-primary-500 modal-name">
+								{{product.name}}
+							</h3>
+							<p class="font-bold text-white modal-price">
+								{{product.price ~ ' €'}}
+							</p>
+						</div>
+						<div>
+							<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white close-modal">
+								<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+								</svg>
+								<span class="sr-only">Close modal</span>
+							</button>
+						</div>
+					</div>
+					<div class="flex justify-center items-center">
+						<img src="{{ asset('uploads/images_products/' ~ product.carousel[0]) }}" class="img-fluid modal-img mb-2 sm:mb-3 w-1/3 h-1/3 rounded-lg" alt="{{product.name}}"/>
+					</div>
+					<dl>
+						<dt class="mb-2 font-semibold leading-none text-white dark:text-white">Ingredients</dt>
+						<dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400 modal-description">{{product.description}}</dd>
+						<dt class="mb-2 font-semibold leading-none text-white dark:text-white">Category</dt>
+						<dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400 modal-category">{{product.category.name}}</dd>
+					</dl>
+					<div class="flex justify-center items-center">
+						<button type="button" class="btn-tw btn-primary-tw">
+							Add To Cart
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	<!-- Main modal -->
+
+{% endblock %}

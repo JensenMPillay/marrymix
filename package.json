@@ -28,8 +28,10 @@
     "dependencies": {
         "@popperjs/core": "^2.11.6",
         "autoprefixer": "^10.4.13",
+        "bootstrap": "^5.2.3",
         "css-loader": "^6.7.3",
         "flowbite": "^1.6.3",
+        "isotope-layout": "^3.0.6",
         "popper.js": "^1.16.1",
         "postcss-loader": "^7.0.2",
         "sass": "^1.58.2",
