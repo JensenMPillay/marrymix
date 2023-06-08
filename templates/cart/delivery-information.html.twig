@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delivery Information
+{% endblock %}
+
+{% block body %}
+
+	<section id="delivery-information" class="delivery-information section-bg">
+		<div class="container" data-aos="fade-down">
+
+			<div class="section-title">
+				<h2>Delivery Information</h2>
+			</div>
+
+			<div class="row" data-aos="fade-down" data-aos-delay="100">
+				<div class="mt-4 flex flex-wrap justify-around">
+					<div id="form-delivery-info" class="col-12 col-md-5 h-auto m-2 m-md-3 bg-secondary border-2 border-primary rounded-lg">
+						{{ form_start(form) }}
+						<div class="card border-none">
+							<div class="card-header bg-black uppercase d-flex">
+								<h3 class="d-flex align-items-center text-primary-500 mt-2">Delivery Information</h3>
+							</div>
+							<div class="card-body bg-secondary flex flex-wrap items-center justify-center w-full">
+								{{ form_label(form.delivery_address, 'Delivery Date', {
+    								'label_attr': {'class': 'text-primary text-sm font-poiretone uppercase'}}) }}
+								{{ form_widget(form.delivery_date, {
+																	'attr': {
+																	'class': 'datepickerInput form-input-tw w-full mb-1 font-montserrat text-sm',
+																	'placeholder' : 'Select a date',
+																	}
+																}) }}
+								{{ form_label(form.delivery_address, 'Delivery Address', {
+    								'label_attr': {'class': 'text-primary text-sm font-poiretone uppercase'}}) }}
+								{{ form_widget(form.delivery_address, {
+																	'attr': {
+																	'class': 'form-input-tw w-full mt-1 font-montserrat text-sm',
+																	'placeholder' : 'Please use the ADDRESS FINDER',
+																	}
+																}) }}
+								{{ form_widget(form.latitude_address) }}
+								{{ form_widget(form.longitude_address) }}
+							</div>
+							<div class="card-footer bg-secondary d-flex flex-column justify-center align-items-center">
+								<div class="border-t border-primary w-4/5 mb-3 sm:mb-4"></div>
+								{{ form_widget(form.save, {
+																	'attr': {
+																	'class': 'btn-tw btn-primary-tw',
+																	}
+																}) }}
+							</div>
+						</div>
+						{{ form_end(form) }}
+					</div>
+					<div id="map-container" class="col-12 col-md-5 h-auto m-2 m-md-3 border-2 border-primary rounded-lg">
+						<div class="card border-none">
+							<div class="card-header bg-black uppercase d-flex border-b border-primary">
+								<h3 class="d-flex align-items-center text-primary-500 mt-2">Address Finder</h3>
+							</div>
+							<div class="card-body !p-0">
+								<div id="map" class="h-[50vh]"></div>
+								<div id="search-box"></div>
+								<div id="result"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

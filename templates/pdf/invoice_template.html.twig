@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Invoice - MarryMix</title>
+
+		<style type="text/css">
+			body {
+				font-size: 16px;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			table tr td {
+				padding: 0;
+			}
+
+			table tr td:last-child {
+				text-align: right;
+			}
+
+			.bold {
+				font-weight: bold;
+			}
+
+			.left {
+				text-align: left;
+			}
+
+			.right {
+				text-align: right;
+			}
+
+			.logo-container {
+				margin: 15px 0;
+			}
+
+			.invoice-info-container {
+				font-size: 0.875em;
+			}
+			.invoice-info-container td {
+				padding: 4px 0;
+			}
+
+			.name {
+				font-size: 1.5em;
+				vertical-align: top;
+			}
+
+			.line-items-container {
+				margin: 35px 0;
+				font-size: 0.875em;
+			}
+
+			.line-items-container th {
+				text-align: left;
+				color: #999;
+				border-bottom: 2px solid #ddd;
+				padding: 10px 0 15px;
+				font-size: 0.75em;
+				text-transform: uppercase;
+			}
+
+			.line-items-container th:last-child {
+				text-align: right;
+			}
+
+			.line-items-container td {
+				padding: 15px 0;
+			}
+
+			.line-items-container tbody tr:first-child td {
+				padding-top: 25px;
+			}
+
+			.line-items-container.has-bottom-border tbody tr:last-child td {
+				padding-bottom: 15px;
+				border-bottom: 2px solid #ddd;
+			}
+
+			.line-items-container.has-bottom-border {
+				margin-bottom: 0;
+			}
+
+			.line-items-container th.heading-quantity {
+				width: 20px;
+				text-align: right;
+			}
+			.line-items-container th.heading-name {
+				width: 50px;
+				text-align: left;
+				font-size: 0.75rem;
+			}
+			.line-items-container th.heading-distance {
+				width: 50px;
+				text-align: right;
+				font-size: 0.75rem;
+			}
+			.line-items-container th.heading-description {
+				width: 100px;
+				text-align: left;
+				font-size: 0.75rem;
+			}
+			.line-items-container th.heading-price {
+				text-align: right;
+				width: 100px;
+			}
+			.line-items-container th.heading-subtotal {
+				width: 25px;
+			}
+			.line-items-container td.description {
+				font-size: 0.75em;
+			}
+
+			.payment-info {
+				max-width: 20%;
+				font-size: 0.75em;
+				line-height: 1.5;
+				color: #cda45e;
+			}
+
+			.delivery-info {
+				font-weight: bold;
+				color: #cda45e;
+			}
+
+			.total {
+				font-weight: bold;
+				color: #cda45e;
+			}
+
+			.page-container {
+				display: none;
+			}
+
+			.page-container {
+				display: block;
+				position: running(pageContainer);
+				margin-top: -20px;
+				font-size: 12px;
+				text-align: right;
+				color: #999;
+			}
+
+			.page-container .page::after {
+				content: counter(page);
+			}
+
+			/* .page-container .pages::after {
+				content: counter(pages);
+			} */
+
+
+			@page {
+				@bottom-right {
+					content: element(pageContainer);
+				}
+				@bottom-left {
+					content: element(footer);
+				}
+			}
+		</style>
+
+	</head>
+	<body>
+
+		<div class="page-container">
+			Page
+			<span class="page"></span>
+			{# of
+																																																																																																																																										<span class="pages"></span> #}
+		</div>
+
+		<div class="logo-container">
+			<img style="height: 150px ; width: 150px;" src="{{ logoPath }}" alt="Logo">
+		</div>
+
+		<table class="invoice-info-container">
+			<tr>
+				<td class="name">
+					MarryMix
+				</td>
+				<td class="name">
+					{{ order.user.lastName}}&nbsp;{{ order.user.firstName}}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Rue Charlie Chaplin
+				</td>
+				<td>
+					{% if not order.user.address is null %}
+						{{ order.user.address }}
+					{% else %}
+						{{ order.deliveryAddress }}
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					91080 EVRY-COURCOURONNES
+				</td>
+				<td>
+					{% if not order.user.address is null %}
+						{{ order.user.postalCode}}&nbsp;{{ order.user.city}}
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					marrymixcocktails@gmail.com
+				</td>
+				<td>
+					{{ order.user.email }}
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="right">
+					Invoice Date :
+					{{ order.updatedAt|date('Y/m/d') }}
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="right">
+					Invoice N° :
+					{{order.id}}
+				</td>
+			</tr>
+		</table>
+
+
+		<table class="line-items-container">
+			<thead>
+				<tr>
+					<th class="heading-name">Product</th>
+					<th class="heading-description">Description</th>
+					<th class="heading-price">Unit Price (HT)</th>
+					<th class="heading-quantity">Qty</th>
+					<th class="heading-quantity">Tax</th>
+					<th class="heading-subtotal">Price (TTC)</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in order.items %}
+					<tr>
+						<td class="bold">{{item.product.name}}</td>
+						<td class="description">{{item.product.description}}</td>
+						<td class="right">{{ (item.product.price - 20 / 100)|format_currency('EUR', locale='de') }}</td>
+						<td class="right">{{item.quantity}}</td>
+						<td class="right">20 %</td>
+						<td class="bold">{{ item.total|format_currency('EUR', locale='de')}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<table class="line-items-container">
+			<thead>
+				<tr>
+					<th class="heading-description">Shipping Fees</th>
+					<th class="heading-distance">Distance (Km)</th>
+					<th class="heading-quantity">Tax</th>
+					<th class="heading-subtotal">Price (TTC)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="bold">MarryMix -
+						{{order.deliveryAddress}}</td>
+					<td class="right">{{order.distanceKm}}</td>
+					<td class="right">20 %</td>
+					<td class="bold">{{ order.shippingFees|format_currency('EUR', locale='de') }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="line-items-container has-bottom-border">
+			<thead>
+				<tr>
+					<th>Payment Info</th>
+					<th>Devivery Information</th>
+					<th>Total (TTC)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="payment-info">
+						<div>
+							Stripe ID :
+							<strong>{{ order.paymentId }}</strong>
+						</div>
+					</td>
+					<td class="delivery-info">
+						<div>
+							<strong>Date :
+								{{ order.deliveryDate|date('Y/m/d') }}</strong>
+							<br>
+							<strong>Address :
+								{{ order.deliveryAddress }}</strong>
+						</div>
+					</td>
+					<td class="total">{{ order.totalWithShippingFees|format_currency('EUR', locale='de') }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

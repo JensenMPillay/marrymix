@@ -6,13 +6,15 @@ use App\Entity\Reservation;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/admin/reservation', name: 'app_admin_reservation')]
 class AdminReservationController extends AbstractController
 {
     #[Route(path: '/', name: '')]
-    public function reservation(ReservationRepository $reservationRepository)
+    public function reservation(ReservationRepository $reservationRepository): Response
     {
         $reservations = $reservationRepository->findAll();
         // View
@@ -20,7 +22,7 @@ class AdminReservationController extends AbstractController
     }
 
     #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
-    public function reservationDelete(ManagerRegistry $managerRegistry, Reservation $reservation = null)
+    public function reservationDelete(ManagerRegistry $managerRegistry, Reservation $reservation = null): RedirectResponse
     {
         if ($reservation) {
             // Suppression

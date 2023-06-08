@@ -9,7 +9,7 @@ use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -26,7 +26,7 @@ class AdminUserController extends AbstractController
     }
 
     #[Route(path: '/create', name: '_create')]
-    public function userCreate(Request $request, ManagerRegistry $managerRegistry, UserPasswordHasherInterface $userPasswordHasher, FormFactoryInterface $formFactory, User $user = null)
+    public function userCreate(Request $request, ManagerRegistry $managerRegistry, UserPasswordHasherInterface $userPasswordHasher, FormFactoryInterface $formFactory, User $user = null): Response
     {
         $user = new User;
 
@@ -47,8 +47,12 @@ class AdminUserController extends AbstractController
                 )
             );
 
-            // Role
-            // $user->setRoles(array($form->get('role')->getData()));
+            $lastnameFormatted = strtoupper($form->get('lastName')->getData());
+
+            $user->setLastName($lastnameFormatted);
+
+            // Rôle
+            $user->setRoles(array("ROLE_USER"));
 
             // Traitement BDD
             $manager = $managerRegistry->getManager();
@@ -63,15 +67,6 @@ class AdminUserController extends AbstractController
         }
 
         // View
-        // If AJAX
-        if ($request->isXmlHttpRequest()) {
-            $html = $this->renderView("admin/_partials/userForm.html.twig", [
-                'userForm' => $form->createView(),
-                'edit' => false,
-            ]);
-            return new JsonResponse(['html' => $html]);
-        }
-        // If Others
         else {
             return $this->render("admin/admin_user/user_create_edit.html.twig", [
                 'userForm' => $form->createView(),
@@ -81,8 +76,11 @@ class AdminUserController extends AbstractController
     }
 
     #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
-    public function userEdit(Request $request, ManagerRegistry $managerRegistry, FormFactoryInterface $formFactory, User $user = null)
+    public function userEdit(Request $request, ManagerRegistry $managerRegistry, FormFactoryInterface $formFactory, User $user = null): Response
     {
+
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access a page without having ROLE_SUPER_ADMIN');
+
         // is User ? 
         if (!$user) {
             return $this->redirectToRoute('app_admin_user_create');
@@ -119,15 +117,6 @@ class AdminUserController extends AbstractController
         }
 
         // View
-        // If AJAX
-        if ($request->isXmlHttpRequest()) {
-            $html = $this->renderView("admin/_partials/userForm.html.twig", [
-                'userForm' => $form->createView(),
-                'edit' => true,
-            ]);
-            return new JsonResponse(['html' => $html]);
-        }
-        // If Others
         else {
             return $this->render("admin/admin_user/user_create_edit.html.twig", [
                 'userForm' => $form->createView(),
@@ -137,8 +126,11 @@ class AdminUserController extends AbstractController
     }
 
     #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
-    public function userDelete(ManagerRegistry $managerRegistry, User $user = null)
+    public function userDelete(ManagerRegistry $managerRegistry, User $user = null): RedirectResponse
     {
+
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access a page without having ROLE_SUPER_ADMIN');
+
         if ($user) {
             // Suppression
             $manager = $managerRegistry->getManager();

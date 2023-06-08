@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order N°{{order.id}}
+{% endblock %}
+
+{% block body %}
+
+	<section id="order" class="order section-bg">
+		<div class="container" data-aos="fade-down">
+
+			<div class="section-title">
+				<h2>Order N°{{order.id}}</h2>
+			</div>
+
+			<div class="row flex items-center justify-center" data-aos="fade-down" data-aos-delay="100">
+				<div class="mt-4 flex flex-wrap justify-around">
+					<div class="col-12 col-lg-7 m-2 m-md-3">
+						<div class="card border-primary border-none">
+							<div class="card-header bg-black uppercase d-flex">
+								<h3 class="d-flex align-items-center text-primary-500 mt-2">Cocktails</h3>
+							</div>
+							<div class="bg-secondary p-2 sm:ps-4 overflow-x-auto">
+								<table class="card-body bg-secondary list-group list-group-flush table overflow-hidden w-full">
+									<thead class="table-header-group border-primary">
+										<tr class="table-row text-primary font-poiretone text-xs uppercase">
+											<th scope="col" class="table-cell">Product</th>
+											<th scope="col" class="table-cell text-center">Quantity</th>
+											<th scope="col" class="table-cell text-center">Price</th>
+										</tr>
+									</thead>
+									<tbody class="table-row-group">
+										{% for item in order.items %}
+											{% do item.product.__load() %}
+											<tr class="table-row list-group-item bg-secondary hover:!bg-secondary-100 transition ease-in-out text-white p-1 sm:p-2">
+												<td class="table-cell">
+													<a class="cursor-pointer hover:text-white" href="{{ path('app_menu_menu') }}#{{item.product.id}}">
+														<div class="flex items-center">
+															<img src="{{ asset('uploads/images_products/' ~ item.product.carousel[0]) }}" width="64" class="d-none d-sm-flex img-fluid rounded-lg" alt="{{ item.product.name }}">
+															<div class="ml-2">
+																<h5 class="mt-0 mb-0">{{ item.product.name }}</h5>
+																<small class="font-montserrat !text-xs">{{ item.product.description[:50] }}...</small>
+															</div>
+														</div>
+													</a>
+												</td>
+												<td class="table-cell">
+													<div class="flex items-center justify-center mt-3 sm:mt-5">
+														{{ item.quantity }}
+													</div>
+												</td>
+												<td class="table-cell">
+													<div class="flex items-center justify-center mt-4 sm:mt-5 text-white font-poiretone">
+														<b>{{ (item.total) |format_currency('EUR', locale='de') }}</b>
+													</div>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-4 m-2 m-md-3">
+					<div class="card border-none border-primary mt-4 mt-md-0">
+						<h3 class="card-header bg-black text-primary uppercase">Summary</h3>
+						<ul class="card-body font-poiretone bg-secondary">
+							<li class="list-group-item text-white bg-secondary d-flex flex-wrap justify-content-between mb-2 mb-md-3">
+								<div>
+									<b>DELIVERY DATE</b>
+								</div>
+								<span>
+									<b class="text-primary">{{ order.deliveryDate|date('Y/m/d') }}</b>
+								</span>
+							</li>
+							<li class="list-group-item text-white bg-secondary d-flex flex-wrap justify-content-between mb-2 mb-md-3">
+								<div>
+									<b>DELIVERY ADDRESS</b>
+								</div>
+								<span>
+									<b class="text-primary">{{ order.deliveryAddress }}</b>
+								</span>
+							</li>
+							<li class="list-group-item text-white bg-secondary d-flex flex-wrap justify-content-between mb-2 mb-md-3">
+								<div>
+									<b>TOTAL PRODUCTS</b>
+								</div>
+								<span>
+									<b>{{ order.total|format_currency('EUR', locale='de') }}</b>
+								</span>
+							</li>
+							<li class="list-group-item text-white bg-secondary d-flex flex-wrap justify-content-between mb-2 mb-md-3">
+								<div>
+									<b>SHIPPING FEES -
+										{{ order.distanceKm }}
+										Km</b>
+								</div>
+								<span>
+									<b>{{ order.shippingFees|format_currency('EUR', locale='de') }}</b>
+								</span>
+							</li>
+							<li class="flex justify-center">
+								<div class="border-t border-primary w-4/5 mb-4 sm:mb-5"></div>
+							</li>
+							<li class="list-group-item text-primary bg-secondary d-flex flex-wrap justify-content-between">
+								<div>
+									<b>TOTAL</b>
+								</div>
+								<span>
+									<b>{{ order.totalWithShippingFees|format_currency('EUR', locale='de') }}</b>
+								</span>
+							</li>
+						</ul>
+						<div class="card-footer bg-secondary d-flex flex-column justify-center align-items-center">
+							<div class="border-t border-primary w-4/5 mb-3 sm:mb-4"></div>
+							<a href="{{ path('app_payment_invoice_pdf', {'payment_id': order.paymentId}) }}" class="btn-tw btn-primary-tw w-1/2">
+								Invoice
+								<i class="bi bi-download"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>{% endblock %}

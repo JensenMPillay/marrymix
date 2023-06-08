@@ -1,70 +1,56 @@
 <nav class="sidebar" tabindex="-1">
 	<div class="logo-details">
-		<img src="{{asset("images/bollyevents-icon.ico")}}" alt='logo' class='icon w-5 h-5 ml-2 mr-5' id="logo_icon"/>
-		<div class="logo_name" id="sidebarCanvasLabel">BollyEvents</div>
-		<i class='bx bx-menu' id="menuBtn"></i>
+		<img src="{{asset("images/logo/marrymix-icon.ico")}}" alt='logo' class='icon w-5 h-5 ml-2 mr-5' id="logo_icon"/>
+		<div class="logo_name" id="sidebarCanvasLabel">MarryMix</div>
+		<i class='bi bi-three-dots' id="menuBtn"></i>
 		<button type="button" class="btn-close">
-			<i class='bx bx-plus'></i>
+			<i class="bi bi-x"></i>
 		</button>
 	</div>
 	<ul class="nav-list">
 		<li class="flex items-center">
-			<i class='bx bx-search'></i>
+			<i class="bi bi-search"></i>
 			<input type="text" placeholder="Search...">
 			<span class="tooltip">Search</span>
 		</li>
 		<li>
 			<a href="{{ path('app_admin_') }}" class="nav_link flex items-center">
-				<i class='bx bx-grid-alt'></i>
+				<i class="bi bi-speedometer2"></i>
 				<span class="links_name ml-2">Dashboard</span>
 			</a>
 			<span class="tooltip">Dashboard</span>
 		</li>
 		<li>
 			<a href="{{ path('app_admin_user') }}" class="nav_link flex items-center">
-				<i class='bx bx-user'></i>
+				<i class="bi bi-people"></i>
 				<span class="links_name ml-2">User</span>
 			</a>
 			<span class="tooltip">User</span>
 		</li>
 		<li>
 			<a href="{{ path('app_admin_category') }}" class="nav_link flex items-center">
-				<i class='bx bx-folder'></i>
+				<i class="bi bi-collection"></i>
 				<span class="links_name ml-2">Category</span>
 			</a>
 			<span class="tooltip">Category</span>
 		</li>
 		<li>
 			<a href="{{ path('app_admin_product') }}" class="nav_link flex items-center">
-				<i class='bx bx-folder'></i>
+				<i class="bi bi-cup-straw"></i>
 				<span class="links_name ml-2">Product</span>
 			</a>
 			<span class="tooltip">Product</span>
 		</li>
 		<li>
-			<a href="{{ path('app_admin_bundle') }}" class="nav_link flex items-center">
-				<i class='bx bx-folder'></i>
-				<span class="links_name ml-2">Bundle</span>
+			<a href="{{ path('app_admin_order') }}" class="nav_link flex items-center">
+				<i class="bi bi-cart-check"></i>
+				<span class="links_name ml-2">Order</span>
 			</a>
-			<span class="tooltip">Bundle</span>
-		</li>
-		<li>
-			<a href="{{ path('app_admin_reservation') }}" class="nav_link flex items-center">
-				<i class='bx bx-cart-alt'></i>
-				<span class="links_name ml-2">Reservation</span>
-			</a>
-			<span class="tooltip">Reservation</span>
-		</li>
-		<li>
-			<a href="{{ path('app_admin_comment') }}" class="nav_link flex items-center">
-				<i class='bx bx-chat'></i>
-				<span class="links_name ml-2">Comment</span>
-			</a>
-			<span class="tooltip">Comment</span>
+			<span class="tooltip">Order</span>
 		</li>
 		<li>
 			<a href="{{ path('app_admin_contact') }}" class="nav_link flex items-center">
-				<i class='bx bx-chat'></i>
+				<i class="bi bi-envelope-at"></i>
 				<span class="links_name ml-2">Contact</span>
 			</a>
 			<span class="tooltip">Contact</span>
@@ -73,12 +59,20 @@
 			<div
 				class="profile-details">
 				<!--<img src="profile.jpg" alt="profileImg">-->
-				<div class="name_job">
-					<div class="name">Prem Chopra</div>
-					<div class="job">Web designer</div>
-				</div>
+				{% if app.user %}
+					<div class="name_job">
+						<div class="name">{{ app.user.lastName }}&nbsp;{{ app.user.firstName }}</div>
+						{% if is_granted('ROLE_SUPER_ADMIN')%}
+							<div class="job">Super Administrator</div>
+						{% else %}
+							<div class="job">Administrator</div>
+						{% endif %}
+					</div>
+				{% endif %}
 			</div>
-			<i class='bx bx-log-out' id="log_out"></i>
+			<a href="{{ path('app_logout') }}">
+				<i class='bi bi-box-arrow-right' id="log_out"></i>
+			</a>
 		</li>
 	</ul>
 </nav>

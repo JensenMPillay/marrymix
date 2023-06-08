@@ -4,82 +4,116 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Your Cart</h1>
-		{% if cart.items.count > 0 %}
-			<div
-				class="row mt-4">
-				<!-- List of items -->
-				<div class="col-md-8">
-					{{ form_start(form) }}
-					<div class="card">
-						<div class="card-header bg-dark text-white d-flex">
-							<h5>Items</h5>
-							<div class="ml-auto">
-								{{ form_widget(form.save, {'attr': {'class': 'btn btn-warning'}}) }}
-								{{ form_widget(form.clear, {'attr': {'class': 'btn btn-light'}}) }}
+
+	<section id="cart" class="cart section-bg">
+		<div class="container" data-aos="fade-down">
+
+			<div class="section-title">
+				<h2>Cart</h2>
+			</div>
+
+			<div class="row" data-aos="fade-down" data-aos-delay="100">
+				{% if cart.items.count > 0 %}
+					<div
+						class="row mt-4">
+						<!-- List of items -->
+						<div class="col-md-8">
+							{{ form_start(form) }}
+							<div class="card border-primary border-none">
+								<div class="card-header bg-black uppercase d-flex">
+									<h3 class="d-flex align-items-center text-primary-500 mt-2">Cocktails</h3>
+									<div class="ml-auto text-right">
+										{{ form_widget(form.save, {'attr': {'class': 'btn-tw btn-primary-tw'}}) }}
+										{{ form_widget(form.clear, {'attr': {'class': 'btn-tw btn-primary-tw'}}) }}
+									</div>
+								</div>
+								<div class="bg-secondary p-2 sm:ps-4 overflow-x-auto">
+									<table class="card-body bg-secondary list-group list-group-flush table overflow-hidden w-full">
+										<thead class="table-header-group border-primary">
+											<tr class="table-row text-primary font-poiretone text-xs uppercase">
+												<th scope="col" class="table-cell">Product</th>
+												<th scope="col" class="table-cell text-center">Quantity</th>
+												<th scope="col" class="table-cell text-center">Price</th>
+												<th class="table-cell"></th>
+											</tr>
+										</thead>
+										<tbody class="table-row-group">
+											{% for item in form.items %}
+												<tr class="table-row list-group-item bg-secondary hover:!bg-secondary-100 transition ease-in-out text-white p-1 sm:p-2">
+													<td class="table-cell">
+														<a class="cursor-pointer hover:text-white" href="{{ path('app_menu_menu') }}#{{item.vars.data.product.id}}">
+															<div class="flex items-center">
+																<img src="{{ asset('uploads/images_products/' ~ item.vars.data.product.carousel[0]) }}" width="64" class="d-none d-sm-flex img-fluid rounded-lg" alt="{{ item.vars.data.product.name }}">
+																<div class="ml-2">
+																	<h5 class="mt-0 mb-0">{{ item.vars.data.product.name }}</h5>
+																	<small class="font-montserrat !text-xs">{{ item.vars.data.product.description[:50] }}...</small>
+																</div>
+															</div>
+														</a>
+													</td>
+													<td class="table-cell">
+														<div class="flex items-center justify-center mt-3 sm:mt-4 ml-2 sm:ml-3">
+															<div class="form-group flex items-center justify-center">
+																{{ form_widget(item.quantity, {
+																	'attr': {
+																	'class': 'form-control text-white text-center bg-secondary focus:bg-secondary border-none border-primary transition ease-in-out form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid'),
+																	'min': 1,
+																	'max' : 9999, 
+																	'step' : 1,
+																	'placeholder' : 'Qty',
+																	}
+																}) }}
+																<div class="invalid-feedback">
+																	{{ form_errors(item.quantity) }}
+																</div>
+															</div>
+														</div>
+													</td>
+													<td class="table-cell">
+														<div class="flex items-center justify-center mt-4 sm:mt-5 text-white font-poiretone">
+															<b>{{ (item.vars.data.total) |format_currency('EUR', locale='de') }}</b>
+														</div>
+													</td>
+													<td class="table-cell">
+														<div class="flex items-center justify-center mt-4 sm:mt-5 text-white font-poiretone">
+															<i>{{ form_row(item.remove, {'attr': {'class': 'bi bi-x-lg text-red-800'}}) }}</i>
+														</div>
+													</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+							{{ form_end(form) }}
+						</div>
+						<!-- Summary -->
+						<div class="col-md-4">
+							<div class="card border-none border-primary mt-4 mt-md-0">
+								<h3 class="card-header bg-black text-primary uppercase">Summary</h3>
+								<ul class="card-body font-poiretone bg-secondary">
+									<li class="list-group-item text-white bg-secondary d-flex justify-content-between">
+										<div>
+											<b>TOTAL</b>
+										</div>
+										<span>
+											<b>{{ cart.total|format_currency('EUR', locale='de') }}</b>
+										</span>
+									</li>
+								</ul>
+								<div class="card-footer bg-secondary d-flex flex-column justify-center align-items-center">
+									<div class="border-t border-primary w-4/5 mb-3 sm:mb-4"></div>
+									<a href="{{ path('app_delivery_information') }}" class="btn-tw btn-primary-tw w-100">Checkout</a>
+								</div>
 							</div>
 						</div>
-						<ul class="list-group list-group-flush">
-							{% for item in form.items %}
-								<li class="list-group-item d-flex">
-									<div class="flex-fill mr-2">
-										<img src="https://via.placeholder.com/200x150" width="64" alt="Product image">
-									</div>
-									<div class="flex-fill mr-2">
-										<h5 class="mt-0 mb-0">{{ item.vars.data.product.name }}</h5>
-										<small>{{ item.vars.data.product.description[:50] }}...</small>
-										<div class="form-inline mt-2">
-											<div class="form-group mb-0 mr-2">
-												{{ form_widget(item.quantity, {
-                                    'attr': {
-                                        'class': 'form-control form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid')
-                                    }
-                                }) }}
-												<div class="invalid-feedback">
-													{{ form_errors(item.quantity) }}
-												</div>
-											</div>
-											{{ form_widget(item.remove, {'attr': {'class': 'btn btn-dark btn-sm'}}) }}
-										</div>
-									</div>
-									<div class="flex-fill mr-2 text-right">
-										<b>{{ item.vars.data.product.price }}
-											€</b>
-									</div>
-								</li>
-							{% endfor %}
-						</ul>
 					</div>
-					{{ form_end(form) }}
-				</div>
-				<!-- Summary -->
-				<div class="col-md-4">
-					<div class="card mt-4 mt-md-0">
-						<h5 class="card-header bg-dark text-white">Summary</h5>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between">
-								<div>
-									<b>Total</b>
-								</div>
-								<span>
-									<b>{{ cart.total }}
-										€</b>
-								</span>
-							</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="btn btn-warning w-100">Checkout</a>
-						</div>
+				{% else %}
+					<div class="text-sm cart-empty">
+						Your cart is empty.
 					</div>
-				</div>
+				{% endif %}
 			</div>
-		{% else %}
-			<div class="alert alert-info">
-				Your cart is empty. Go to the
-				<a href="{{ path('app_front_products') }}">product list</a>.
-			</div>
-		{% endif %}
-	</div>
-
+		</div>
+	</section>
 {% endblock %}

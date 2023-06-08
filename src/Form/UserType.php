@@ -52,9 +52,15 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('address', TextType::class)
-            ->add('city', TextType::class)
-            ->add('postalCode', TextType::class);
+            ->add('address', TextType::class, [
+                'required'   => false,
+            ])
+            ->add('city', TextType::class, [
+                'required'   => false,
+            ])
+            ->add('postalCode', TextType::class, [
+                'required'   => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

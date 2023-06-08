@@ -58,16 +58,16 @@ class ProductType extends AbstractType
                 'placeholder' => 'Choose a category',
                 'multiple' => false,
                 'expanded' => true,
-            ])
-            ->add('bundle', EntityType::class, [
-                // Choices from Entity ?
-                'class' => Bundle::class,
-                // Property Visible for Choice ?
-                'choice_label' => 'name',
-                'placeholder' => 'Choose some bundles',
-                'multiple' => true,
-                'expanded' => true,
             ]);
+        // ->add('bundle', EntityType::class, [
+        //     // Choices from Entity ?
+        //     'class' => Bundle::class,
+        //     // Property Visible for Choice ?
+        //     'choice_label' => 'name',
+        //     'placeholder' => 'Choose some bundles',
+        //     'multiple' => true,
+        //     'expanded' => true,
+        // ]);
         for ($i = 0; $i < 5; $i++) {
             $builder->add("image" . $i, FileType::class, [
                 'mapped' => false,

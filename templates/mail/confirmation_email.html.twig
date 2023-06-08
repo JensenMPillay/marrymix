@@ -1,0 +1,22 @@
+<!-- confirmation_email.html.twig -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Please Confirm your Email</title>
+	</head>
+	<body style="background-color: #0c0b09;">
+		<div style="max-width: 600px; margin: 0 auto; padding: 40px;">
+			<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color:#cda45e">Please Confirm your Email</h1>
+			<p style="margin-bottom: 20px; color: #ffffff;">Hello!</p>
+			<p style="margin-bottom: 20px; color: #ffffff;">Thank you for signing up on our website. To complete your registration, please click on the verification link below:</p>
+			<p style="margin-bottom: 20px; color: color:#cda45e;">
+				<a href="{{ signedUrl }}" style="color: color:#cda45e; text-decoration: underline;">Verify my account</a>
+			</p>
+			<p style="margin-bottom: 40px; color: #ffffff;">This link will expire in
+				{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+			<p style="margin-bottom: 20px; color: #ffffff;">We are excited to have you on board and are here to assist you if you have any questions.</p>
+			<p style="margin-bottom: 10px; color: #ffffff;">Best regards,<br>MarryMix</p>
+		</div>
+	</body>
+</html>

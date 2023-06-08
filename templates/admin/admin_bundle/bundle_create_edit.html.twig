@@ -1,18 +1,39 @@
-{{ form_start(bundleForm) }}
+{% extends 'baseAdmin.html.twig' %}
 
-{{ form_row(bundleForm.name, {'attr': { 'placeholder': "Name"}}) }}
+{% block title %}
+	Admin - Bundle N°
+	{{bundleForm.vars.data.id}}
+{% endblock %}
 
-{% for i in 0..4 %}
-	{{ form_row(bundleForm['image' ~ i]) }}
-	{% if edit and bundleForm.vars.value.carousel[i] is defined and bundleForm.vars.value.carousel[i] is not empty %}
-		<img src="{{ asset('uploads/images_bundles/' ~ bundleForm.vars.value.carousel[i]) }}" alt="{{ bundleForm.vars.value.carousel[i] }}" class="img-thumbnail max-w-[50px] max-h-[50px]">
-	{% endif %}
-{% endfor %}
-
-{{ form_row(bundleForm.description, {'attr': { 'placeholder': "Description"}}) }}
-
-{{ form_row(bundleForm.price, {'attr': { 'placeholder': "Price"}}) }}
-
-<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
-
-{{ form_end(bundleForm) }}
+{% block body %}
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Bundle N°
+					{{bundleForm.vars.data.id}}
+				</div>
+			</div>
+			<div class="card-body text-white p-3 flex flex-wrap justify-center">
+				{{ form_start(bundleForm) }}
+				<div class="flex flex-column flex-wrap justify-around items-center">
+					{{ form_widget(bundleForm.name, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Name"}}) }}
+					{% for i in 0..4 %}
+						<div class="flex flex-row items-center m-2">
+							{{ form_widget(bundleForm['image' ~ i], {'attr': { 'class': "form-input-tw mb-2"}}) }}
+							{% if edit and bundleForm.vars.value.carousel[i] is defined and bundleForm.vars.value.carousel[i] is not empty %}
+								<img src="{{ asset('uploads/images_bundles/' ~ bundleForm.vars.value.carousel[i]) }}" alt="{{ bundleForm.vars.value.carousel[i] }}" class="img-thumbnail mx-2" style="max-width: 50px; max-height: 50px;">
+							{% endif %}
+						</div>
+					{% endfor %}
+					{{ form_widget(bundleForm.description, {'attr': { 'rows': "15", 'cols': "100", 'class': "form-input-tw mb-2 w-full h-full", 'placeholder': "Description"}}) }}
+					{{ form_widget(bundleForm.price, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Price"}}) }}
+				</div>
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4">
+				<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
+				{{ form_end(bundleForm) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

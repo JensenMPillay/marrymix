@@ -3,7 +3,7 @@
 let header = document.querySelector(".header");
 let sidebar = document.querySelector(".sidebar");
 let menuBtn = document.querySelector("#menuBtn");
-let searchBtn = document.querySelector(".bx-search");
+let searchBtn = document.querySelector(".bi-search");
 let showSidebarBtnMobile = document.querySelector("#mobile_showSidebar");
 let closeSidebarBtnMobile = document.querySelector(".btn-close");
 let logoDetails = document.querySelector(".logo-details");
@@ -15,9 +15,9 @@ let content = document.querySelector(".content");
 // SIDEBAR Change MenuBtn
 function menuBtnChange() {
   if (sidebar.classList.contains("open")) {
-    menuBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+    menuBtn.classList.replace("bi-three-dots", "bi-three-dots-vertical"); //replacing the iocns class
   } else {
-    menuBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+    menuBtn.classList.replace("bi-three-dots-vertical", "bi-three-dots"); //replacing the iocns class
   }
 }
 

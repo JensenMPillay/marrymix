@@ -6,6 +6,8 @@ use App\Entity\Contact;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -15,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminContactController extends AbstractController
 {
     #[Route(path: '/', name: '')]
-    public function contact(ContactRepository $contactRepository)
+    public function contact(ContactRepository $contactRepository): Response
     {
         $contacts = $contactRepository->findAll();
         // View
@@ -23,7 +25,7 @@ class AdminContactController extends AbstractController
     }
 
     #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
-    public function contactDelete(ManagerRegistry $managerRegistry, Contact $contact = null)
+    public function contactDelete(ManagerRegistry $managerRegistry, Contact $contact = null): RedirectResponse
     {
         if ($contact) {
             // Suppression
