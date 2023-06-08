@@ -1,39 +1,42 @@
 {# Affichage Message Flash #}
 {% for key, message in app.flashes %}
 	{% if key matches '/success/i' %}
-		<div class="alert alert-success" role="alert" data-te-alert-init data-te-alert-show>
-			<strong class="ml-auto">{{message[0]}}
-			</strong>
-			<button type="button" class="alert-btn-close" data-te-alert-dismiss aria-label="Close">
-				<span class="alert-btn-close-span">
-					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-						<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-					</svg>
-				</span>
+		<div id="alert-success" class="alert-tw alert-success-tw" role="alert">
+			<span class="sr-only">Info</span>
+			<div class="ml-auto">
+				<i class="bi bi-info-circle-fill mr-2"></i>
+				<strong>{{message[0]}}
+				</strong>
+			</div>
+			<button type="button" class="alert-btn-close-tw" data-dismiss-target="#alert-success" aria-label="Close">
+				<span class="sr-only"></span>
+				<i class="bi bi-x"></i>
 			</button>
 		</div>
 	{% elseif key matches '/warning/i'%}
-		<div class="alert alert-warning" role="alert" data-te-alert-init data-te-alert-show>
-			<strong class="ml-auto">{{message[0]}}
-			</strong>
-			<button type="button" class="alert-btn-close" data-te-alert-dismiss aria-label="Close">
-				<span class="alert-btn-close-span">
-					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-						<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-					</svg>
-				</span>
+		<div id="alert-warning" class="alert-tw alert-warning-tw" role="alert">
+			<span class="sr-only">Info</span>
+			<div class="ml-auto">
+				<i class="bi bi-info-circle-fill mr-2"></i>
+				<strong>{{message[0]}}
+				</strong>
+			</div>
+			<button type="button" class="alert-btn-close-tw" data-dismiss-target="#alert-warning" aria-label="Close">
+				<span class="sr-only"></span>
+				<i class="bi bi-x"></i>
 			</button>
 		</div>
 	{% elseif key matches '/danger/i'%}
-		<div class="alert alert-danger" role="alert" data-te-alert-init data-te-alert-show>
-			<strong class="ml-auto">{{message[0]}}
-			</strong>
-			<button type="button" class="alert-btn-close" data-te-alert-dismiss aria-label="Close">
-				<span class="alert-btn-close-span">
-					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-						<path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-					</svg>
-				</span>
+		<div id="alert-danger" class="alert-tw alert-danger-tw" role="alert">
+			<span class="sr-only">Info</span>
+			<div class="ml-auto">
+				<i class="bi bi-info-circle-fill mr-2"></i>
+				<strong>{{message[0]}}
+				</strong>
+			</div>
+			<button type="button" class="alert-btn-close-tw" data-dismiss-target="#alert-danger" aria-label="Close">
+				<span class="sr-only"></span>
+				<i class="bi bi-x"></i>
 			</button>
 		</div>
 	{% endif %}

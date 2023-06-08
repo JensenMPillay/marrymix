@@ -1,52 +1,68 @@
 <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-	<a href="index.html" class="logo me-auto me-lg-0 w-1/12 h-1/12"><img src="{{asset("images/logo/marrymix.png")}}" alt="logo" class="img-fluid"></a>
+	<a href="{{ path('index') }}" class="logo me-auto me-lg-0 w-1/12 h-1/12"><img src="{{asset("images/logo/marrymix.png")}}" alt="logo" class="img-fluid"></a>
 
 	<nav id="navbar" class="navbar order-last order-lg-0">
 		<ul>
 			<li>
-				<a class="nav-link scrollto " href="#hero">Home</a>
+				<a class="nav-link uppercase scrollto" href="{{ path('index') }}">Home</a>
 			</li>
 			<li>
-				<a class="nav-link scrollto" href="#menu">Menu</a>
+				<a class="nav-link uppercase scrollto" href="{{ path('app_menu_menu') }}">Menu</a>
 			</li>
 			<li>
-				<a class="nav-link scrollto" href="#contact">Contact</a>
+				<a class="nav-link uppercase scrollto" href="{{ path('app_contact') }}">Contact</a>
 			</li>
-			<li class="dropdown">
+			<li class="dropdown uppercase">
 				<a href="#">
-					<span>My Account</span>
+					<span>Account</span>
 					<i class="bi bi-chevron-down"></i>
 				</a>
-				<ul>
-					<li>
-						<a href="#">Personal Information</a>
-					</li>
-					<li class="dropdown">
-						<a href="#">
-							<span>Settings</span>
-							<i class="bi bi-chevron-right"></i>
+				{% if app.user %}
+					<ul>
+						<li>
+							<a href="{{ path('app_account_my') }}">Personal Information</a>
+						</li>
+						{% if not app.user.orders is empty %}
+							<li class="dropdown">
+								<a href="{{ path('app_account_orders') }}">
+									<span>Orders</span>
+									<i class="bi bi-chevron-right"></i>
+								</a>
+								<ul>
+									{% for order in app.user.orders %}
+										<li>
+											<a href="{{ path('app_account_order', {'id': order.id}) }}">Order N°{{order.id}}</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</li>
+						{% endif %}
+						<li>
+							<a href="{{ path('app_logout') }}">Disconnect</a>
+						</li>
+					</ul>
+				{% else %}
+					<ul>
+						<a href="{{ path('app_register') }}">
+							<li>Register</li>
 						</a>
-						<ul>
-							<li><a href="#">Parameters</a></li>
-							<li><a href="#">Parameters</a></li>
-							<li><a href="#">Parameters</a></li>
-							<li><a href="#">Parameters</a></li>
-							<li><a href="#">Parameters</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#">Disconnect</a>
-					</li>
-				</ul>
+						<a href="{{ path('app_login') }}">
+							<li>Login</li>
+						</a>
+					</ul>
+				{% endif %}
 			</li>
-		</ul>
-		<i class="bi bi-list mobile-nav-toggle"></i>
-	</nav>
-	<!-- .navbar -->
-	<div class="d-none d-lg-flex flex-lg-row">
-		<a href="#book-a-table" class="book-a-table-btn scrollto">Cart</a>
-	</div>
-
-
-</div>
+		</li>
+	</ul>
+	<a href="{{ path('app_cart')}}" class="mr-4">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#cda45e" class="bi bi-basket3 mobile-cart" viewbox="0 1 16 16">
+			<path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
+		</svg>
+	</a>
+	<i class="bi bi-list mobile-nav-toggle"></i>
+</nav>
+<!-- .navbar -->
+<div class="d-none d-lg-flex flex-lg-row">
+	<a href="{{ path('app_cart') }}" class="btn-tw btn-secondary-tw">Cart</a>
+</div></div>

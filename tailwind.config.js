@@ -6,15 +6,13 @@ module.exports = {
     "./assets/js/**/*.js",
     "./assets/js/**/*.jsx",
     "./node_modules/flowbite/dist/**/*.js",
-    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
   theme: {
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        samarkan: ["Samarkan", "sans-serif"],
-        playfair: ["PlayfairDisplay", "sans-serif"],
-        opensans: ["OpenSans", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        poiretone: ["PoiretOne", "sans-serif"],
+        italianno: ["Italianno", "sans-serif"],
       },
       colors: {
         transparent: "transparent",
@@ -22,11 +20,11 @@ module.exports = {
         white: "#ffffff",
         primary: "#cda45e",
         primary: {
-          100: "#ecbc6b",
-          200: "#dfb265",
-          300: "#daae63",
-          400: "#d0a65f",
-          500: "#cda45e",
+          100: "rgba(205, 164, 94, 0.2)",
+          200: "rgba(205, 164, 94, 0.4)",
+          300: "rgba(205, 164, 94, 0.6)",
+          400: "rgba(205, 164, 94, 0.8)",
+          500: "rgba(205, 164, 94, 1)",
           600: "#be9857",
           700: "#b49052",
           800: "#ae8c4f",
@@ -60,5 +58,5 @@ module.exports = {
       ],
     },
   },
-  plugins: [require("tw-elements/dist/plugin"), require("flowbite/plugin")],
+  plugins: [require("flowbite/plugin")],
 };

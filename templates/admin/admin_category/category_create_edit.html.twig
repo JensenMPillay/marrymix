@@ -1,24 +1,38 @@
-{{ form_start(categoryForm) }}
+{% extends 'baseAdmin.html.twig' %}
 
-{{ form_row(categoryForm.name, {'attr': { 'placeholder': "Name"}}) }}
+{% block title %}
+	Admin - Category N°
+	{{categoryForm.vars.data.id}}
+{% endblock %}
 
-{{ form_row(categoryForm.image1, {'attr': { 'placeholder': "Image"}}) }}
-{% if edit and categoryForm.vars.value.carousel[0] is defined and categoryForm.vars.value.carousel[0] is not empty %}
-	<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[0]) }}" alt="{{ categoryForm.vars.value.carousel[0] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
-{% endif %}
-
-{{ form_row(categoryForm.image2, {'attr': { 'placeholder': "Image"}}) }}
-{% if edit and categoryForm.vars.value.carousel[1] is defined and categoryForm.vars.value.carousel[1] is not empty %}
-	<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[1]) }}" alt="{{ categoryForm.vars.value.carousel[1] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
-{% endif %}
-
-{{ form_row(categoryForm.image3, {'attr': { 'placeholder': "Image"}}) }}
-{% if edit and categoryForm.vars.value.carousel[2] is defined and categoryForm.vars.value.carousel[2] is not empty %}
-	<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[2]) }}" alt="{{ categoryForm.vars.value.carousel[2] }}" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
-{% endif %}
-
-{{ form_row(categoryForm.description, {'attr': { 'placeholder': "Description"}}) }}
-
-<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
-
-{{ form_end(categoryForm) }}
+{% block body %}
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Category N°
+					{{categoryForm.vars.data.id}}
+				</div>
+			</div>
+			<div class="card-body text-white p-3 flex flex-wrap justify-center">
+				{{ form_start(categoryForm) }}
+				<div class="flex flex-column flex-wrap justify-around items-center">
+					{{ form_widget(categoryForm.name, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Name"}}) }}
+					{% for i in 1..3 %}
+						<div class="flex flex-row items-center m-2">
+							{{ form_widget(categoryForm['image' ~ i], {'attr': { 'class': "form-input-tw mb-2"}}) }}
+							{% if edit and categoryForm.vars.value.carousel[i - 1] is defined and categoryForm.vars.value.carousel[i - 1] is not empty %}
+								<img src="{{ asset('uploads/images_categories/' ~ categoryForm.vars.value.carousel[i - 1]) }}" alt="{{ categoryForm.vars.value.carousel[i - 1] }}" class="img-thumbnail mx-2" style="max-width: 50px; max-height: 50px;">
+							{% endif %}
+						</div>
+					{% endfor %}
+					{{ form_widget(categoryForm.description, {'attr': { 'rows': "15", 'cols': "100", 'class': "form-input-tw mb-2 w-full h-full", 'placeholder': "Description"}}) }}
+				</div>
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4">
+				<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
+				{{ form_end(categoryForm) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

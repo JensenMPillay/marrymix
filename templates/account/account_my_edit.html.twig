@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Edit Personal Information
+{% endblock %}
+
+{% block body %}
+	<!-- ======= Personal Information Section ======= -->
+	<section id="personal-information" class="">
+		<div class="container" data-aos="fade-down" data-aos-delay="100">
+			<div class="section-title">
+				<h2>Edit Personal Information</h2>
+			</div>
+			<div class="row mt-5 flex items-center justify-center">
+				<div class="col-12 col-md-8">
+					{% if app.user %}
+						{{ form_start(userForm) }}
+						<div class="card border-none border-primary font-poiretone mt-4 mt-md-0">
+							<div class="card-header flex flex-row justify-between bg-black  uppercase">
+								<h3 class="text-primary">Personal Information</h3>
+								<a href="{{ path('app_account_my_edit')}}">
+									<span class="hover:text-primary-500 focus:text-primary-500 cursor-pointer">
+										<button type="submit">
+											<i class="bi bi-person-fill-check"></i>
+										</button>
+									</span>
+								</a>
+							</div>
+
+							<table class="card-body bg-secondary table table-borderless overflow-hidden w-full mb-0">
+
+								<tbody>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">Lastname :</th>
+										<td class="text-end">{{ form_widget(userForm.lastName, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">Firstname :</th>
+										<td class="text-end">{{ form_widget(userForm.firstName, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">Email :</th>
+										<td class="text-end">{{ form_widget(userForm.email, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">Password :</th>
+										<td class="text-end">{{ form_widget(userForm.plainPassword, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">Password confirmation :</th>
+										<td class="text-end">{{ form_widget(userForm.confirmPassword, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">Address :</th>
+										<td class="text-end">{{ form_widget(userForm.address, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">City :</th>
+										<td class="text-end">{{ form_widget(userForm.city, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+									<tr class="flex flex-wrap justify-between">
+										<th class="text-primary">PostalCode :</th>
+										<td class="text-end">{{ form_widget(userForm.postalCode, {
+																	'attr': {
+																	'class': 'form-input-tw font-montserrat text-sm',
+																	'placeholder' : '',
+																	}
+																}) }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						{{ form_end(userForm) }}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section><!-- End Personal Information Section -->{% endblock %}

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 #[Route(path: '/admin/category', name: 'app_admin_category')]
 class AdminCategoryController extends AbstractController
@@ -26,7 +27,7 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route(path: '/create', name: '_create')]
-    public function categoryCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Category $category = null)
+    public function categoryCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Category $category = null): Response
     {
         $category = new Category;
 
@@ -80,7 +81,7 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
-    public function categoryEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Category $category = null)
+    public function categoryEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Category $category = null): Response
     {
         // is Category ? 
         if (!$category) {
@@ -160,7 +161,7 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
-    public function categoryDelete(ManagerRegistry $managerRegistry, Category $category = null)
+    public function categoryDelete(ManagerRegistry $managerRegistry, Category $category = null): RedirectResponse
     {
         if ($category) {
 

@@ -3,3 +3,20 @@ index:
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults: 
         template: index.html.twig
+
+about-us:
+    path: /about-us
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults: 
+        template: contact/about-us.html.twig
+
+credits:
+    path: /credits
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults: 
+        template: contact/credits.html.twig
+
+# cookie_consent_submit:
+#     path: /cookie-consent
+#     controller: App\Controller\YourController::cookieConsentSubmit
+#     methods: [POST]

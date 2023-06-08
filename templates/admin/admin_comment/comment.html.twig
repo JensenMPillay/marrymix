@@ -1,5 +1,9 @@
 {% extends 'baseAdmin.html.twig' %}
 
+{% block title %}
+	Admin - Comments Management
+{% endblock %}
+
 {% block body %}
 	<div class="flex justify-center m-5">
 		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
@@ -41,8 +45,8 @@
 													{% endif %}
 												</td>
 												<td class="whitespace-nowrap px-3 py-2">
-													<a href="{{ path('app_admin_comment_delete', {'id': comment.id}) }}" class="btn-tw btn-secondary-tw btn-sm m-1" onclick="return confirm('Are you sure?')">
-														Delete
+													<a href="{{ path('app_admin_comment_delete', {'id': comment.id}) }}" class="btn-icon-tw btn-sm m-1" onclick="return confirm('Are you sure?')">
+														<i class="bi bi-x-square"></i>
 													</a>
 												</td>
 											</tr>

@@ -1,15 +1,39 @@
-{{ form_start(userForm) }}
+{% extends 'baseAdmin.html.twig' %}
 
-{{ form_row(userForm.email, {'attr': { 'placeholder': "Email"}}) }}
-{{ form_row(userForm.lastName, {'attr': { 'placeholder': "Last Name"}}) }}
-{{ form_row(userForm.firstName, {'attr': { 'placeholder': "First Name"}}) }}
-{% if not edit %}
-	{{ form_row(userForm.plainPassword, {'attr': { 'placeholder': "Password"}}) }}
-	{{ form_row(userForm.confirmPassword, {'attr': { 'placeholder': "Confirm Password"}}) }}
-{% endif %}
-{{ form_row(userForm.address, {'attr': { 'placeholder': "Address"}}) }}
-{{ form_row(userForm.city, {'attr': { 'placeholder': "City"}}) }}
-{{ form_row(userForm.postalCode, {'attr': { 'placeholder': "Postal Code"}}) }}
-<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
-{{form_errors(userForm)}}
-{{ form_end(userForm) }}
+{% block title %}
+	Admin - User N°
+	{{userForm.vars.data.id}}
+{% endblock %}
+
+{% block body %}
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					User N°
+					{{userForm.vars.data.id}}
+				</div>
+			</div>
+			<div class="card-body text-white p-3 flex flex-wrap justify-center">
+				{{ form_start(userForm) }}
+				<div class="flex flex-column flex-wrap justify-around items-center">
+					{{ form_widget(userForm.email, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Email"}}) }}
+					{{ form_widget(userForm.lastName, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Lastname"}}) }}
+					{{ form_widget(userForm.firstName, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Firstname"}}) }}
+					{% if not edit %}
+						{{ form_widget(userForm.plainPassword, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Password"}}) }}
+						{{ form_widget(userForm.confirmPassword, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Confirm Password"}}) }}
+					{% endif %}
+					{{ form_widget(userForm.address, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Address"}}) }}
+					{{ form_widget(userForm.city, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "City"}}) }}
+					{{ form_widget(userForm.postalCode, {'attr': { 'class': "form-input-tw mb-2", 'placeholder': "Postal Code"}}) }}
+					{{ form_errors(userForm) }}
+				</div>
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4">
+				<button type="submit" class="btn-tw btn-primary-tw">{{ edit ? 'Update' : 'Create' }}</button>
+				{{ form_end(userForm) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
