@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\Entity\Order;
 use App\Factory\OrderFactory;
 use App\Storage\CartSessionStorage;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -69,6 +70,7 @@ class CartManager
     public function save(Order $cart): void
     {
         // Persist in database
+        $cart->setUpdatedAt(new DateTimeImmutable());
         $this->entityManager->persist($cart);
         $this->entityManager->flush();
         // Persist in session

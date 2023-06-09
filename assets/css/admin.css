@@ -147,7 +147,7 @@
   padding: 0 20px 0 50px;
   width: 100%;
 }
-.sidebar .bx-search {
+.sidebar .bi-search {
   position: absolute;
   top: 50%;
   left: 0;
@@ -156,11 +156,11 @@
   background: var(--second-color);
   color: var(--white-color);
 }
-.sidebar.open .bx-search:hover {
+.sidebar.open .bi-search:hover {
   background: var(--second-color);
   color: var(--white-color);
 }
-.sidebar .bx-search:hover {
+.sidebar .bi-search:hover {
   background: var(--white-color);
   color: var(--second-color);
 }
@@ -374,7 +374,7 @@
   }
   .btn-close {
     position: relative;
-    top: 1px;
+    top: -21px;
     left: 10px;
     color: var(--white-color);
   }
@@ -391,6 +391,7 @@
   /* HEADER  */
   /* CONTENT  */
   .content {
+    position: initial;
     left: 0;
     width: 100%;
   }

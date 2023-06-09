@@ -12,11 +12,11 @@ class CartControllerTest extends WebTestCase
 
     private function getRandomProduct(AbstractBrowser $client): array
     {
-        $crawler = $client->request('GET', '/front/products');
-        $productNode = $crawler->filter('.card')->eq(rand(0, 9));
-        $productName = $productNode->filter('.card-title')->getNode(0)->textContent;
-        $productPrice = (float)$productNode->filter('span.h5')->getNode(0)->textContent;
-        $productLink = $productNode->filter('.btn-dark')->link();
+        $crawler = $client->request('GET', '/menu/');
+        $productNode = $crawler->filter('.menu-item')->eq(rand(0, 9));
+        $productName = $productNode->filter('.product-name')->getNode(0)->textContent;
+        $productPrice = (float)$productNode->filter('product-price')->getNode(0)->textContent;
+        $productLink = $productNode->filter('.product-link ')->link();
 
         return [
             'name' => $productName,
@@ -24,6 +24,10 @@ class CartControllerTest extends WebTestCase
             'url' => $productLink->getUri()
         ];
     }
+
+    /*
+    * Test can't be possible as we use Javascript for handling add-to-cart action
+    */
 
     private function addRandomProductToCart(AbstractBrowser $client, int $quantity = 1): array
     {

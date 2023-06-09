@@ -27,13 +27,59 @@ class Order
      *
      * @var string
      */
-    const STATUS_CART = 'cart';
+    const STATUS_CART = 'CART_STEP';
+
+    /**
+     * In Progress Status : Checkout Status.
+     *
+     * @var string
+     */
+    const STATUS_CHECKOUT = 'CHECKOUT_STEP';
+
+    /**
+     * In Progress Status : Payed Status.
+     *
+     * @var string
+     */
+    const STATUS_PAYED = 'PAYED_STEP';
+
+    /**
+     * In Progress Status : Delivery Waiting Status.
+     *
+     * @var string
+     */
+    const STATUS_DELIVERY_WAITING = 'DELIVERY_WAITING_STEP';
+
+    /**
+     * In Progress Status : Ended Status.
+     *
+     * @var string
+     */
+    const STATUS_DELIVERED = 'DELIVERED_STEP';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $delivery_date = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $delivery_address = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $shipping_fees = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?User $user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $distance = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $payment_id = null;
 
     public function __construct()
     {
@@ -147,5 +193,100 @@ class Order
         }
 
         return $total;
+    }
+
+    public function getDeliveryDate(): ?\DateTimeImmutable
+    {
+        return $this->delivery_date;
+    }
+
+    public function setDeliveryDate(?\DateTimeImmutable $delivery_date): self
+    {
+        $this->delivery_date = $delivery_date;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?string
+    {
+        return $this->delivery_address;
+    }
+
+    public function setDeliveryAddress(?string $delivery_address): self
+    {
+        $this->delivery_address = $delivery_address;
+
+        return $this;
+    }
+
+    public function getShippingFees(): ?float
+    {
+        return $this->shipping_fees;
+    }
+
+    public function setShippingFees(?float $shipping_fees): self
+    {
+        $this->shipping_fees = $shipping_fees;
+
+        return $this;
+    }
+
+    /**
+     * Calculates the order total with ShippingFees.
+     *
+     * @return float
+     */
+    public function getTotalWithShippingFees(): float
+    {
+        $totalWithShippingFees = 0;
+
+        $totalProducts = $this->getTotal();
+
+        $shipping_fees = $this->getShippingFees() != null ? $this->getShippingFees() : 0;
+
+        $totalWithShippingFees = $totalProducts + $shipping_fees;
+
+        return $totalWithShippingFees;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDistance(): ?float
+    {
+        return $this->distance;
+    }
+
+    public function getDistanceKm(): ?float
+    {
+        return round($this->distance / 1000, 2);
+    }
+
+    public function setDistance(?float $distance): self
+    {
+        $this->distance = $distance;
+
+        return $this;
+    }
+
+    public function getPaymentId(): ?string
+    {
+        return $this->payment_id;
+    }
+
+    public function setPaymentId(?string $payment_id): self
+    {
+        $this->payment_id = $payment_id;
+
+        return $this;
     }
 }

@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 #[Route(path: '/admin/product', name: 'app_admin_product')]
 class AdminProductController extends AbstractController
 {
     #[Route(path: '/', name: '')]
-    public function product(ProductRepository $productRepo)
+    public function product(ProductRepository $productRepo): Response
     {
         $products = $productRepo->findAll();
         // View
@@ -25,7 +27,7 @@ class AdminProductController extends AbstractController
     }
 
     #[Route(path: '/create', name: '_create')]
-    public function productCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Product $product = null)
+    public function productCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Product $product = null): Response
     {
         $product = new Product;
 
@@ -73,7 +75,7 @@ class AdminProductController extends AbstractController
     }
 
     #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
-    public function productEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Product $product = null)
+    public function productEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Product $product = null): Response
     {
         // is Product ? 
         if (!$product) {
@@ -135,7 +137,7 @@ class AdminProductController extends AbstractController
     }
 
     #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
-    public function productDelete(ManagerRegistry $managerRegistry, Product $product = null)
+    public function productDelete(ManagerRegistry $managerRegistry, Product $product = null): RedirectResponse
     {
         if ($product) {
 

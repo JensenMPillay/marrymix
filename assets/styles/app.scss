@@ -1,73 +1,3 @@
-/* Google Font Link */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "custom";
-@import "../css/admin.css";
-@import "../css/style.css";
-@import "../vendor/animate.css/animate.min.css";
-@import "../vendor/aos/aos.css";
-@import "../vendor/bootstrap-icons/bootstrap-icons.css";
-@import "../vendor/boxicons/css/boxicons.min.css";
-@import "../vendor/glightbox/css/glightbox.min.css";
-@import "../vendor/swiper/swiper-bundle.min.css";
-
-@font-face {
-  font-family: "Samarkan";
-  src: url("../fonts/SAMAN___.TTF") format("truetype");
-}
-
-@font-face {
-  font-family: "PlayfairDisplay";
-  src: url("../fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "OpenSans";
-  src: url("../fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
-}
-
-@layer components {
-  .alert-tw {
-    @apply mb-3 hidden w-full items-center rounded-lg data-[te-alert-show]:inline-flex;
-  }
-  .alert-success-tw {
-    @apply bg-green-300 py-5 px-6 text-base text-green-800;
-  }
-  .alert-warning-tw {
-    @apply bg-orange-300 py-5 px-6 text-base text-orange-800;
-  }
-  .alert-danger-tw {
-    @apply bg-red-300 py-5 px-6 text-base text-red-800;
-  }
-  .alert-btn-close-tw {
-    @apply ml-auto box-content rounded-none border-none p-1 text-gray-900 opacity-50 hover:text-gray-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none;
-  }
-  .alert-btn-close-span {
-    @apply w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25;
-  }
-  .btn-tw {
-    @apply m-2 inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal shadow transition duration-300 ease-in-out hover:shadow-md focus:shadow-md focus:outline-none  focus:ring-0  active:shadow-md;
-  }
-  .btn-primary-tw {
-    @apply bg-primary-500 text-white hover:bg-secondary-900 hover:text-primary-500 hover:shadow-primary-400/50 focus:bg-secondary-900 focus:text-primary-500  focus:shadow-primary-400/50 active:bg-secondary-900 active:text-white active:shadow-white;
-  }
-  .btn-secondary-tw {
-    @apply bg-secondary-100 text-white hover:bg-primary-500 hover:text-secondary-900 hover:shadow-secondary-400/50 focus:bg-primary-500 focus:text-secondary-900  focus:shadow-secondary-400/50 active:bg-secondary-100 active:text-primary-700 active:shadow-secondary-400/50;
-  }
-  .img-thumbnail-tw {
-    @apply h-auto max-w-full rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30;
-  }
-  .form-input-tw {
-    @apply rounded-none border-secondary-500 bg-secondary-900 text-white shadow-none placeholder:text-secondary-300 autofill:rounded-none autofill:border-secondary-500 autofill:bg-secondary-900 autofill:text-white autofill:shadow-none autofill:placeholder:text-secondary-300 hover:border-yellow-500 focus:border-yellow-500 focus:outline-none autofill:focus:border-yellow-500;
-  }
-}
-
-// Import Bootstrap
-@import "~bootstrap/scss/bootstrap";
-
 // Custom variables
 $primary: #cda45e;
 $secondary: #0c0b09;
@@ -80,3 +10,68 @@ $theme-colors: (
 
 // Compile Bootstrap with custom variables
 @import "~bootstrap/scss/bootstrap";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "custom";
+@import "../css/admin.css";
+@import "../css/style.css";
+@import "animate.css";
+@import "swiper/css/bundle";
+@import "leaflet";
+@import "aos/dist/aos.css";
+@import "bootstrap-icons";
+@import "glightbox/dist/css/glightbox.min.css";
+@import "../vendor/leaflet-geocoder/leaflet-geocoder-locationiq.min.css";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoiretOne";
+  src: url("../fonts/PoiretOne-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Italianno";
+  src: url("../fonts/Italianno-Regular.ttf") format("truetype");
+}
+
+@layer components {
+  .alert-tw {
+    @apply z-[999] flex w-full flex-row items-center text-center font-poiretone text-sm transition-all duration-100 ease-in-out;
+  }
+  .alert-success-tw {
+    @apply py-3 text-green-800;
+  }
+  .alert-warning-tw {
+    @apply py-3 text-orange-800;
+  }
+  .alert-danger-tw {
+    @apply py-3 text-red-800;
+  }
+  .alert-btn-close-tw {
+    @apply -mx-1.5 -my-1.5 ml-auto inline-flex h-8 w-8 self-end p-1.5;
+  }
+  .btn-tw {
+    @apply m-2 inline-block rounded px-6 pt-2.5 pb-2 text-center  font-poiretone text-sm font-medium uppercase leading-normal shadow transition duration-300 ease-in-out hover:shadow-md focus:shadow-md focus:outline-none  focus:ring-0  active:shadow-md;
+  }
+  .btn-icon-tw {
+    @apply m-2 inline-block rounded px-3 pt-2.5 pb-2 text-center  font-poiretone text-sm font-medium uppercase leading-normal shadow transition duration-300 ease-in-out hover:shadow-md focus:shadow-md focus:outline-none  focus:ring-0  active:shadow-md;
+  }
+  .btn-primary-tw {
+    @apply bg-primary-500 text-white hover:bg-secondary-900 hover:text-primary-500 hover:shadow-primary-400/50 focus:bg-secondary-900 focus:text-primary-500  focus:shadow-primary-400/50 active:bg-secondary-900 active:text-primary-500 active:shadow-primary-400/50;
+  }
+  .btn-secondary-tw {
+    @apply bg-secondary-900 text-primary-500 hover:bg-secondary-100 hover:text-secondary-900 hover:shadow-secondary-400/50 focus:bg-primary-500 focus:text-secondary-900  focus:shadow-secondary-400/50 active:bg-secondary-100 active:text-secondary-900 active:shadow-secondary-400/50;
+  }
+  .img-thumbnail-tw {
+    @apply h-auto max-w-full rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30;
+  }
+  .form-input-tw {
+    @apply rounded-none border-secondary-500 bg-secondary-900 text-white shadow-none placeholder:text-secondary-300 autofill:rounded-none autofill:border-secondary-500 autofill:bg-secondary-900 autofill:text-white autofill:shadow-none autofill:placeholder:text-secondary-300 hover:border-yellow-500 focus:border-yellow-500 focus:outline-none autofill:focus:border-yellow-500;
+  }
+}

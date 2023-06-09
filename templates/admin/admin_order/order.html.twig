@@ -1,0 +1,71 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}
+	Admin - Orders Management
+{% endblock %}
+
+{% block body %}
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Orders Management
+				</div>
+			</div>
+			<div class="card-body p-3">
+				<div class="flex flex-col table-responsive overflow-x-auto lg-rounded">
+					<div class="sm:-mx-1 lg:-mx-2">
+						<div class="inline-block min-w-full py-2 sm:px-3 lg:px-4">
+							<div class="overflow-x-auto">
+								<table class="min-w-full text-left text-sm font-light">
+									<thead class="border-b text-primary-700 text-center">
+										<tr>
+											<th scope="col" class="px-3 py-2 font-medium">ID</th>
+											<th scope="col" class="px-3 py-2">Status</th>
+											<th scope="col" class="px-3 py-2">User</th>
+											<th scope="col" class="px-3 py-2">Delivery Date</th>
+											<th scope="col" class="px-3 py-2">Delivery Address</th>
+											<th scope="col" class="px-3 py-2">Total</th>
+											<th scope="col" class="px-3 py-2">CreatedAt</th>
+											<th scope="col" class="px-3 py-2">UpdatedAt</th>
+											<th scope="col" class="px-3 py-2">Actions</th>
+										</tr>
+									</thead>
+									<tbody class="text-secondary-200 text-center">
+										{% for order in orders %}
+											{# {% do order.user.__load() %} #}
+											<tr class="border-b">
+												<td class="whitespace-nowrap px-3 py-2 font-medium">{{ order.id }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ order.status|replace({'_STEP': ''}) }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ order.user.lastName }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ order.deliveryDate|date('Y/m/d') }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ order.deliveryAddress }}</td>
+												<td class="whitespace-nowrap px-3 py-2">{{ order.totalWithShippingFees|format_currency('EUR', locale='de') }}</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													{% if order.updatedAt %}
+														{{ order.updatedAt|date('Y-m-d H:i:s') }}
+													{% endif %}
+												</td>
+												<td class="whitespace-nowrap px-3 py-2">
+													<a href="{{ path('app_admin_order_edit', {'id': order.id}) }}" class="btn-icon-tw btn-sm m-1">
+														<i class="bi bi-pencil-square"></i>
+													</a>
+													<a href="{{ path('app_admin_order_delete', {'id': order.id}) }}" class="btn-icon-tw btn-sm m-1" onclick="return confirm('Are you sure?')">
+														<i class="bi bi-x-square"></i>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4"></div>
+		</div>
+	</div>
+{% endblock %}

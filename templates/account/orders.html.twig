@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Orders
+{% endblock %}
+
+{% block body %}
+	<!-- ======= Orders Section ======= -->
+	<section id="personal-information" class="">
+		<div class="container" data-aos="fade-down" data-aos-delay="100">
+			<div class="section-title">
+				<h2>Orders</h2>
+			</div>
+			<div class="row mt-5 flex items-center justify-center">
+				<div class="col-12 col-md-8">
+					<div class="card border-none border-primary font-poiretone mt-4 mt-md-0">
+						<div class="card-header flex flex-row justify-between bg-black  uppercase">
+							<h3 class="text-primary">Orders</h3>
+						</div>
+						{% if app.user %}
+							<table class="card-body bg-secondary table table-borderless overflow-hidden w-full mb-0">
+								<thead>
+									<tr>
+										<th scope="col" class="text-primary text-center">Order ID</th>
+										<th scope="col" class="text-primary text-center">Total</th>
+										<th scope="col" class="text-primary text-center">Date</th>
+										<th scope="col" class="text-primary text-center">Status</th>
+										<th scope="col" class="text-primary text-center">See Details</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if not app.user.orders is empty %}
+										{% for order in app.user.orders %}
+											<tr class="">
+												<td class="text-center">{{ order.id }}</td>
+												<td class="text-center">{{ order.totalWithShippingFees|format_currency('EUR', locale='de') }}</td>
+												<td class="text-center">{{ order.updatedAt|date('Y/m/d') }}</td>
+												<td class="text-center">{{ order.status|replace({'_STEP': ''})}}</td>
+												<td class="text-center">
+													<a href="{{ path('app_account_order', {'id': order.id}) }}">
+														<span class="hover:text-primary-500 focus:text-primary-500 cursor-pointer">
+															<i class="bi bi-search"></i>
+														</span>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									{% else %}
+										<tr>
+											<td colspan="5" class="text-center">You don't have any orders yet.</td>
+										</tr>
+									{% endif %}
+								</tbody>
+							</table>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- End Orders Section -->{% endblock %}

@@ -27,15 +27,21 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.6",
+        "animate.css": "^4.1.1",
+        "aos": "^2.3.4",
         "autoprefixer": "^10.4.13",
         "bootstrap": "^5.2.3",
+        "bootstrap-icons": "^1.10.5",
         "css-loader": "^6.7.3",
         "flowbite": "^1.6.3",
+        "flowbite-datepicker": "^1.2.2",
+        "glightbox": "^3.2.0",
         "isotope-layout": "^3.0.6",
+        "leaflet": "^1.9.4",
         "popper.js": "^1.16.1",
         "postcss-loader": "^7.0.2",
         "sass": "^1.58.2",
         "style-loader": "^3.3.1",
-        "tw-elements": "^1.0.0-beta1"
+        "swiper": "^9.3.2"
     }
 }

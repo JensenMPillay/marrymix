@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact Us
+{% endblock %}
+
+{% block body %}
+	<!-- ======= Contact Section ======= -->
+	<section id="contact" class="contact">
+		<div class="container" data-aos="fade-down" data-aos-delay="100">
+			<div class="section-title">
+				<h2>Contact</h2>
+			</div>
+			<div class="row mt-5">
+				<div class="col-lg-4">
+					<div class="info">
+						<div class="address">
+							<i class="bi bi-geo-alt"></i>
+							<h4>Location</h4>
+							<p>Rue Charlie Chaplin, 91080 EVRY-COURCOURCONNES</p>
+						</div>
+
+						<div class="open-hours">
+							<i class="bi bi-clock"></i>
+							<h4>Open Hours</h4>
+							<p>7/7 24H/24H</p>
+						</div>
+
+						<div class="email">
+							<i class="bi bi-envelope"></i>
+							<h4>Email</h4>
+							<p>marrymixcocktails@gmail.com</p>
+						</div>
+
+						<div class="phone">
+							<i class="bi bi-phone"></i>
+							<h4>Call</h4>
+							<p>+33 6 24 16 60 60</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-8 mt-5 mt-lg-0">
+					{{ form_start(form) }}
+					<div class="row flex flex-wrap justify-between me-2 me-md-3">
+						{{ form_widget(form.email, {
+																	'attr': {
+																	'class': 'form-input-tw col-12 col-md-5 mb-2 mb-md-3 font-montserrat text-sm',
+																	'placeholder' : 'Email',
+																	}
+																}) }}
+						{{ form_widget(form.subject, {
+																	'attr': {
+																	'class': 'form-input-tw col-md-5  mb-2 mb-md-3 font-montserrat text-sm',
+																	'placeholder' : 'Subject',
+																	}
+																}) }}
+					</div>
+					<div class="row me-2 me-md-3">
+
+						{{ form_widget(form.content, {
+																	'attr': {
+                                                                    'rows': "8",
+																	'class': 'form-input-tw w-full mb-1 mb-md-2 font-montserrat text-sm',
+																	'placeholder' : 'Message',
+																	}
+																}) }}
+					</div>
+					<div class="text-center">
+						{{ form_widget(form.send, {
+																	'attr': {
+																	'class': 'btn-tw btn-primary-tw',
+																	}
+																}) }}
+					</div>
+				</div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div></section><!-- End Contact Section -->{% endblock %}

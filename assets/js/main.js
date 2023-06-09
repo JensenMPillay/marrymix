@@ -1,16 +1,12 @@
-/**
- * Template Name: Restaurantly
- * Updated: Mar 10 2023 with Bootstrap v5.2.3
- * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
- * Author: BootstrapMade.com
- * License: https://bootstrapmade.com/license/
- */
-
-import GLightbox from "../vendor/glightbox/js/glightbox.min";
-import Swiper from "../vendor/swiper/swiper-bundle.min";
-import AOS from "../vendor/aos/aos";
+import GLightbox from "glightbox";
+import AOS from "aos";
 import Isotope from "isotope-layout";
-import { Modal } from "flowbite";
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-marrymix-icon-2x.svg";
+import markerIcon from "leaflet/dist/images/marker-marrymix-icon.svg";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import Datepicker from "flowbite-datepicker/Datepicker";
+import Swiper from "swiper/bundle";
 
 (function () {
   "use strict";
@@ -238,64 +234,30 @@ import { Modal } from "flowbite";
   });
 
   /**
+   * Swiper
+   */
+  const swiper = new Swiper(".swiper", {
+    // Optional parameters
+    direction: "vertical",
+    loop: true,
+    speed: 600,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: "auto",
+    pagination: {
+      el: ".swiper-pagination",
+      type: "bullets",
+      clickable: true,
+    },
+  });
+
+  /**
    * Initiate glightbox
    */
   const glightbox = GLightbox({
     selector: ".glightbox",
-  });
-
-  /**
-   * Events slider
-   */
-  new Swiper(".events-slider", {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    slidesPerView: "auto",
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-      clickable: true,
-    },
-  });
-
-  /**
-   * Testimonials slider
-   */
-  new Swiper(".testimonials-slider", {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    slidesPerView: "auto",
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-      clickable: true,
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20,
-      },
-
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-      },
-    },
-  });
-
-  /**
-   * Initiate gallery lightbox
-   */
-  const galleryLightbox = GLightbox({
-    selector: ".gallery-lightbox",
   });
 
   /**
@@ -310,58 +272,311 @@ import { Modal } from "flowbite";
     });
   });
 
-  // // Modal with Product info on the Menu page
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   // All links
-  //   const productLinks = document.querySelectorAll(".product-link");
-  //   const modalTemplate = document.getElementById("productModal");
+  /**
+   * AJAX for Add To Cart - MENU
+   */
+  const handleAddToCart = () => {
+    const productLinks = document.querySelectorAll(".btn-add-to-cart");
+    let glightboxes = [];
+    for (let i = 1; i <= productLinks.length; i++) {
+      glightboxes[i] = GLightbox({
+        selector: ".glightbox" + i,
+      });
+    }
 
-  //   // Modal Options
-  //   const options = {
-  //     placement: "bottom-right",
-  //     backdrop: "dynamic",
-  //     backdropClasses:
-  //       "bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40",
-  //     closable: true,
-  //     onHide: () => {
-  //       console.log("modal is hidden");
-  //     },
-  //     onShow: () => {
-  //       console.log("modal is shown");
-  //     },
-  //     onToggle: () => {
-  //       console.log("modal has been toggled");
-  //     },
-  //   };
-  //   if (productLinks && modalTemplate) {
-  //     // Modal Object
-  //     const productModal = new Modal(modalTemplate, options);
-  //     const closeModal = document.querySelector(".close-modal");
-  //     closeModal.addEventListener("click", function () {
-  //       productModal.hide();
-  //     });
-  //     productLinks.forEach(function (link) {
-  //       link.addEventListener("click", function (event) {
-  //         event.preventDefault();
-  //         let productData = JSON.parse(link.dataset.product);
-  //         populateModal(productData);
-  //         productModal.show();
-  //       });
-  //     });
+    productLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
 
-  //     function populateModal(product) {
-  //       const modalName = document.querySelector(".modal-name");
-  //       const modalPrice = document.querySelector(".modal-price");
-  //       const modalImage = document.querySelector(".modal-img");
-  //       const modalDescription = document.querySelector(".modal-description");
-  //       const modalCategory = document.querySelector(".modal-category");
+        fetch(link.href)
+          .then((response) => response.json())
+          .then((json) => {
+            if (json.code == "ITEM_ADDED_SUCCESSFULLY") {
+              link.classList.add("pointer-events-none");
+              link.classList.add("cursor-not-allowed");
+              link.classList.add("opacity-50");
+              link.textContent = "ADDED TO CART !";
+            } else {
+              console.log("ITEM_NOT_ADDED_SUCCESSFULLY");
+            }
+          });
+      });
+    });
+  };
+  window.addEventListener("load", handleAddToCart);
 
-  //       modalName.textContent = product.name;
-  //       modalPrice.textContent = product.price + " €";
-  //       // modalImage.alt = product.name;
-  //       modalDescription.textContent = product.description;
-  //       modalCategory.textContent = product.category.name;
-  //     }
-  //   }
-  // });
+  /*
+   * Remove TextContents from Buttons (Remove) in Cart - CART
+   */
+  const removeTextContentsCart = () => {
+    const removeButtons = document.querySelectorAll(".bi-x-lg");
+    removeButtons.forEach(function (btn) {
+      btn.textContent = "";
+    });
+  };
+  window.addEventListener("load", removeTextContentsCart);
+
+  /*
+   * Handle BackgroundColor Sync on Row Hover in Cart - CART
+   */
+  const syncBgColorRowCart = () => {
+    const rows = document.querySelectorAll(".table-row-group .table-row");
+    rows.forEach((row) => {
+      let input = row.querySelector("input");
+      row.addEventListener("mouseenter", function () {
+        input.classList.replace("bg-secondary", "bg-secondary-100");
+      });
+      row.addEventListener("mouseleave", function () {
+        input.classList.replace("bg-secondary-100", "bg-secondary");
+      });
+    });
+  };
+  window.addEventListener("load", syncBgColorRowCart);
+
+  /*
+   * Checkout - CHECKOUT
+   */
+
+  /*
+   * Function to Format Address From Popup
+   */
+  function extractAddressFromPopup(popupContent) {
+    // Créer un élément div temporaire pour analyser le contenu HTML de la popup
+    var tempDiv = document.createElement("div");
+    tempDiv.innerHTML = popupContent;
+
+    // Récupérer les éléments avec les classes spécifiques
+    var nameElement = tempDiv.querySelector(".name");
+    var addressElement = tempDiv.querySelector(".address");
+
+    // Extraire les valeurs des éléments
+    var name = nameElement ? nameElement.textContent.trim() : "";
+    var address = addressElement ? addressElement.textContent.trim() : "";
+
+    // Vérifier si le nom de rue commence par un nombre suivi d'un espace
+    var streetRegex = /^\d+\b/;
+    var streetMatch = address.match(streetRegex);
+
+    var street = "";
+    if (streetMatch) {
+      var streetNumber = streetMatch[0];
+      var streetName = name;
+      street = streetNumber + " " + streetName;
+    } else {
+      street = name;
+    }
+
+    // Extraire les parties spécifiques de l'adresse
+    var parts = address.split(", ");
+    var city = parts[parts.length - 5];
+    var postalCode = parts[parts.length - 2];
+    var country = parts[parts.length - 1];
+
+    // Construire le résultat final
+    var result = "";
+    if (street) {
+      result += street + ", ";
+    }
+    if (city) {
+      result += city + ", ";
+    }
+    if (postalCode) {
+      result += postalCode + ", ";
+    }
+    if (country) {
+      result += country;
+    }
+
+    return result;
+  }
+
+  const showMapLeaflet = () => {
+    // Initialize default icons
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconUrl: markerIcon,
+      iconRetinaUrl: markerIcon2x,
+      shadowUrl: markerShadow,
+    });
+
+    const API_KEY = "pk.da60081c90327265b082bda3adbdbcec";
+
+    let isMap = document.getElementById("map");
+
+    if (isMap) {
+      // Create TileLayer
+      const map = L.map("map", { zoomControl: false }).setView(
+        [48.62944030761719, 2.421143054962158],
+        11
+      );
+      L.tileLayer(
+        `https://{s}-tiles.locationiq.com/v3/dark/r/{z}/{x}/{y}.png?key=${API_KEY}`,
+        {
+          maxZoom: 19,
+          attribution:
+            '&copy; <a href="http://www.locationiq.com/">LocationIQ</a>',
+        }
+      ).addTo(map);
+
+      // Create Marker on Map
+      const marryMixPopup =
+        "<p class='font-semibold text-center uppercase'> MarryMix </p> <p>Rue Charlie Chaplin, 91000 EVRY, FRANCE </p>";
+      const customOptions = {
+        // maxWidth: "auto",
+        className: "",
+        keepInView: true,
+      };
+
+      let markers = [];
+
+      const marker = L.marker([48.62944030761719, 2.421143054962158], {
+        title: "MarryMix",
+      });
+      marker.addTo(map);
+      marker.bindPopup(marryMixPopup, customOptions).openPopup();
+      markers.push(marker);
+
+      if (window.location.href.includes("checkout")) {
+        let latCustomer = parseFloat(localStorage.getItem("latCustomer"));
+        let lngCustomer = parseFloat(localStorage.getItem("lngCustomer"));
+
+        if (latCustomer && lngCustomer) {
+          // Create MarkerCustomer on Map
+          const customerPopup =
+            "<p class='font-semibold text-center uppercase'> Your Delivery Address </p>";
+
+          const markerCustomer = L.marker([latCustomer, lngCustomer], {
+            title: "Your Delivery Address",
+          });
+          markerCustomer.addTo(map);
+          markerCustomer.bindPopup(customerPopup, customOptions).openPopup();
+          markers.push(markerCustomer);
+
+          // Viewing Behavior
+          // Create A Limit of Bounds Empty
+          let bounds = L.latLngBounds([]);
+
+          // Adding Positions to Limits of Bounds
+          markers.forEach(function (marker) {
+            bounds.extend(marker.getLatLng());
+          });
+
+          // FitBounds for viewing all Markers
+          if (bounds.isValid()) {
+            map.fitBounds(bounds);
+            setTimeout(function () {
+              map.setZoom(10);
+            }, 100);
+          }
+        }
+      }
+
+      // Select Input "Delivery Address"
+      const deliveryAddressInput = document.querySelector(
+        "#delivery_delivery_address"
+      );
+      const deliveryLatitudeInput = document.querySelector(
+        "#delivery_latitude_address"
+      );
+      const deliveryLongitudeInput = document.querySelector(
+        "#delivery_longitude_address"
+      );
+
+      if (deliveryAddressInput) {
+        deliveryAddressInput.value = "";
+        // Listen on New Markers & Get Infos
+        map.on("layeradd", function (e) {
+          if (e.layer instanceof L.Marker) {
+            let markerResult = e.layer;
+            let coordinates = markerResult.getLatLng();
+            if (coordinates) {
+              // Fill Hidden Inputs to Matrix
+              deliveryLatitudeInput.value = coordinates.lat;
+              deliveryLongitudeInput.value = coordinates.lng;
+              // Store Localisation Information
+              localStorage.setItem("latCustomer", coordinates.lat.toString());
+              localStorage.setItem("lngCustomer", coordinates.lng.toString());
+            }
+            let popup = markerResult.getPopup();
+            if (popup) {
+              let popupContent = popup.getContent();
+              let addressFormatted = extractAddressFromPopup(popupContent);
+              deliveryAddressInput.value = addressFormatted;
+              // deliveryAddressInput.disabled = true;
+            }
+          }
+        });
+
+        // Plugin AutoComplete Search
+        L.control.geocoder(API_KEY).addTo(map);
+
+        if (window.location.href.includes("payment/success")) {
+          localStorage.removeItem("latCustomer");
+          localStorage.removeItem("lngCustomer");
+        }
+      }
+    }
+  };
+  window.addEventListener("load", showMapLeaflet);
+
+  /*
+   * Configurate a DatePicker for Delivery Date - DELIVERY INFORMATION
+   */
+  const configurateDatePicker = () => {
+    const datePickerEl = document.querySelector(".datepickerInput");
+    if (datePickerEl) {
+      new Datepicker(datePickerEl, {
+        orientation: "bottom right",
+        format: "yyyy-mm-dd",
+        autohide: true,
+        weekStart: 1,
+        minDate: new Date().toISOString().split("T")[0],
+      });
+      // Adjust Position
+      const datePickerWindow = document.querySelector(".datepicker-dropdown");
+      datePickerWindow.classList.remove("top-0");
+      // datePickerWindow.offsetTop = datepickerEl.offsetTop;
+      datePickerWindow.style.top = `${datePickerEl.offsetTop}px`;
+      const datePickerCalendar = document.querySelector(".datepicker-picker");
+      datePickerCalendar.classList.replace("bg-white", "bg-primary-500/50");
+    }
+  };
+  window.addEventListener("load", configurateDatePicker);
+
+  /*
+   * Handle AJAX for Cookies Consent
+   */
+  const cookieConsentHandler = () => {
+    const form = document.getElementById("cookie-consent-form");
+    if (form) {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let formData = new FormData(form);
+        // Fetch
+        fetch("/cookie-consent", {
+          method: "POST",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: formData,
+        })
+          .then(function (response) {
+            if (response.ok) {
+              return response.text();
+            }
+            throw new Error("Error: " + response.status);
+          })
+          .then(function (data) {
+            console.log(data);
+            form.style.display = "none";
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      });
+    }
+  };
+
+  window.addEventListener("load", cookieConsentHandler);
 })();

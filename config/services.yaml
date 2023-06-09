@@ -7,6 +7,7 @@ parameters:
     images_categories_directory: '%kernel.project_dir%/public/uploads/images_categories'
     images_bundles_directory: '%kernel.project_dir%/public/uploads/images_bundles'
     images_products_directory: '%kernel.project_dir%/public/uploads/images_products'
+    pdf_invoices_directory: '%kernel.project_dir%/public/uploads/pdf_invoices'
 
 services:
     # default configuration for services in *this* file

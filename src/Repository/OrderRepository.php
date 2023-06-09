@@ -42,9 +42,9 @@ class OrderRepository extends ServiceEntityRepository
     public function findCartsNotModifiedSince(\DateTime $limitDate, int $limit = 10): array
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.status = :status')
+            ->andWhere('o.status IN (:statuses)')
             ->andWhere('o.updatedAt < :date')
-            ->setParameter('status', Order::STATUS_CART)
+            ->setParameter('statuses', [Order::STATUS_CART, Order::STATUS_CHECKOUT])
             ->setParameter('date', $limitDate)
             ->setMaxResults($limit)
             ->getQuery()

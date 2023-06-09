@@ -1,0 +1,28 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}
+	Admin - Order
+	{{orderForm.vars.data.id}}
+{% endblock %}
+
+{% block body %}
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Order N°
+					{{orderForm.vars.data.id}}
+				</div>
+			</div>
+			<div class="card-body text-white p-3">
+				{{ form_start(orderForm) }}
+				{{ form_label(orderForm.status)}}
+				{{ form_widget(orderForm.status, {'attr': { 'class': "form-input-tw mt-2", 'placeholder': ""}}) }}
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4">
+				<button type="submit" class="btn-tw btn-primary-tw">Update</button>
+				{{ form_end(orderForm) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

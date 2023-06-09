@@ -4,8 +4,10 @@ namespace App\Storage;
 
 use App\Entity\Order;
 use App\Repository\OrderRepository;
+use Symfony\Bundle\SecurityBundle\Security as SecurityBundleSecurity;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CartSessionStorage
 {
@@ -14,14 +16,21 @@ class CartSessionStorage
      *
      * @var RequestStack
      */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /**
      * The cart repository.
      *
      * @var OrderRepository
      */
-    private $cartRepository;
+    private OrderRepository $cartRepository;
+
+    /**
+     * To Get User.
+     *
+     * @var Security
+     */
+    private Security $security;
 
     /**
      * @var string
@@ -33,11 +42,13 @@ class CartSessionStorage
      *
      * @param RequestStack $requestStack
      * @param OrderRepository $cartRepository
+     * @param Security $security
      */
-    public function __construct(RequestStack $requestStack, OrderRepository $cartRepository)
+    public function __construct(RequestStack $requestStack, OrderRepository $cartRepository, Security $security)
     {
         $this->requestStack = $requestStack;
         $this->cartRepository = $cartRepository;
+        $this->security = $security;
     }
 
     /**
@@ -47,10 +58,31 @@ class CartSessionStorage
      */
     public function getCart(): ?Order
     {
-        return $this->cartRepository->findOneBy([
-            'id' => $this->getCartId(),
-            'status' => Order::STATUS_CART
-        ]);
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+
+        if ($user) {
+            $cart = $this->cartRepository->findOneBy(
+                [
+                    'user' => $user,
+                    'status' => [Order::STATUS_CART, Order::STATUS_CHECKOUT]
+                ],
+                ['createdAt' => 'DESC']
+            );
+            if ($cart) {
+                $this->setCart($cart);
+                return $cart;
+            }
+        }
+
+        return $this->cartRepository->findOneBy(
+            [
+                'id' => $this->getCartId(),
+                'status' => [Order::STATUS_CART, Order::STATUS_CHECKOUT]
+            ]
+        );
     }
 
     /**

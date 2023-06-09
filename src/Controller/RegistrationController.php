@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
             $user->setCreatedAt(new \DateTimeImmutable());
 
             // => Rôle
-            $user->setRoles(array("ROLE_ADMIN"));
+            $user->setRoles(array("ROLE_USER"));
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -58,13 +58,13 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('jmooroongapillay@gmail.com', 'BollyEvents Bot'))
+                    ->from(new Address('marrymixcocktails@gmail.com', 'MarryMix Bot'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('mail/confirmation_email.html.twig')
+                    ->textTemplate('mail/confirmation_email.txt.twig')
             );
-            // do anything else you need here, like send an email
-            $this->addFlash('register_success', 'An email has been sent to your address.');
+            $this->addFlash('register_success', 'An email has been sent to your address email.');
 
             return $this->redirectToRoute('index');
         }

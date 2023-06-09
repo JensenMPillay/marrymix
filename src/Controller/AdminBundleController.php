@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 #[Route(path: '/admin/bundle', name: 'app_admin_bundle')]
 class AdminBundleController extends AbstractController
 {
     #[Route(path: '/', name: '')]
-    public function bundle(BundleRepository $bundleRepo)
+    public function bundle(BundleRepository $bundleRepo): Response
     {
         $bundles = $bundleRepo->findAll();
         // View
@@ -25,7 +27,7 @@ class AdminBundleController extends AbstractController
     }
 
     #[Route(path: '/create', name: '_create')]
-    public function bundleCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Bundle $bundle = null)
+    public function bundleCreate(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Bundle $bundle = null): Response
     {
         $bundle = new Bundle;
 
@@ -73,7 +75,7 @@ class AdminBundleController extends AbstractController
     }
 
     #[Route(path: '/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
-    public function bundleEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Bundle $bundle = null)
+    public function bundleEdit(Request $request, ManagerRegistry $managerRegistry, SluggerInterface $slugger, FileService $fileService, Bundle $bundle = null): Response
     {
         // is Bundle ? 
         if (!$bundle) {
@@ -131,7 +133,7 @@ class AdminBundleController extends AbstractController
     }
 
     #[Route(path: '/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
-    public function bundleDelete(ManagerRegistry $managerRegistry, Bundle $bundle = null)
+    public function bundleDelete(ManagerRegistry $managerRegistry, Bundle $bundle = null): RedirectResponse
     {
         if ($bundle) {
 

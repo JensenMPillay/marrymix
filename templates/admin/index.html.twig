@@ -1,7 +1,86 @@
 {% extends 'baseAdmin.html.twig' %}
 
 {% block title %}
-	AdminController
+	Admin - Dashboard
 {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+	<div class="flex justify-center m-5">
+		<div class="flex flex-col min-w-full min-h-full rounded-lg bg-third text-center shadow-lg">
+			<div class="card-header border-b border-primary-800">
+				<div class="card-title text-primary-800 font-medium py-3 px-6">
+					Dashboard
+				</div>
+			</div>
+			<div class="card-body p-3">
+				<div class="flex flex-col table-responsive overflow-x-auto lg-rounded">
+					<div class="sm:-mx-1 lg:-mx-2">
+						<div class="inline-block min-w-full py-2 sm:px-3 lg:px-4">
+							<div class="overflow-x-auto">
+								<table class="min-w-full text-left text-sm font-light">
+									<thead class="border-b text-primary-700 text-center">
+										<tr>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_user") }}" class="cursor-pointer">Users</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_category") }}" class="cursor-pointer">Categories</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_product") }}" class="cursor-pointer">Products</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_contact") }}" class="cursor-pointer">Contacts</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">Orders</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">Orders Payed</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">Orders Waiting</a>
+											</th>
+											<th scope="col" class="px-3 py-2">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">Orders Delivered</a>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="text-secondary-200 text-center">
+										<tr class="border-b">
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_user") }}" class="cursor-pointer">{{users}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_category") }}" class="cursor-pointer">{{categories}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_product") }}" class="cursor-pointer">{{products}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_contact") }}" class="cursor-pointer">{{contacts}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">{{orders}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">{{ordersPayed}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">{{ordersWaiting}}</a>
+											</td>
+											<td class="whitespace-nowrap px-3 py-2 font-medium">
+												<a href="{{ path("app_admin_order") }}" class="cursor-pointer">{{OrdersDelivered}}</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer border-t border-primary-800 py-2 px-4"></div>
+		</div>
+	</div>
+{% endblock %}
