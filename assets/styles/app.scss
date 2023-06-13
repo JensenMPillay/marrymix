@@ -42,7 +42,7 @@ $theme-colors: (
 
 @layer components {
   .alert-tw {
-    @apply z-[999] flex w-full flex-row items-center text-center font-poiretone text-sm transition-all duration-100 ease-in-out;
+    @apply relative z-[999] flex w-full flex-row items-center text-center font-poiretone text-sm transition-all duration-100 ease-in-out;
   }
   .alert-success-tw {
     @apply py-3 text-green-800;

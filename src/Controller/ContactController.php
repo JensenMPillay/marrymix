@@ -34,7 +34,7 @@ class ContactController extends AbstractController
             // Mail
             $email = (new TemplatedEmail())
                 ->from(new Address($form->getData()->getEmail(), 'MarryMix Contact'))
-                ->to('marrymixcocktails@gmail.com')
+                ->to('info@marrymix.fr')
                 ->subject($form->getData()->getSubject())
                 ->htmlTemplate('mail/contact.html.twig')
                 ->context([

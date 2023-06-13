@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset Password
+{% endblock %}
+
+{% block body %}
+	<section id="reset-password" class="reset-password">
+		<div class="container" data-aos="fade-down">
+
+			<div class="section-title">
+				<h2>Reset Password</h2>
+			</div>
+
+			<div class="row d-flex justify-content-center align-items-center" data-aos="fade-down" data-aos-delay="100">
+				<div class="col-10 col-md-4 mx-2 d-flex flex-column items-center justify-center">
+					{{ form_start(requestForm, {'attr': { 'class': 'text-center'}}) }}
+					{{ form_widget(requestForm.email, {'attr': { 'class': 'mb-3 form-input-tw w-full', 'placeholder': "Email"}}) }}
+					<div class="font-montserrat mb-2">
+						<small>
+							Enter your email address and we will send you a link to reset your password.
+						</small>
+					</div>
+					{{ form_errors(requestForm) }}
+					<div class="text-center">
+						<button type="submit" class="btn-tw btn-lg btn-primary-tw m-auto">Send password reset email</button>
+					</div>
+					{{ form_end(requestForm) }}
+				</div>
+			</div>
+		</section>
+	{% endblock %}
