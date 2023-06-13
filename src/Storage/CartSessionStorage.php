@@ -4,10 +4,10 @@ namespace App\Storage;
 
 use App\Entity\Order;
 use App\Repository\OrderRepository;
-use Symfony\Bundle\SecurityBundle\Security as SecurityBundleSecurity;
+use Symfony\Bundle\SecurityBundle\Security as Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Security;
+// use Symfony\Component\Security\Core\Security;
 
 class CartSessionStorage
 {

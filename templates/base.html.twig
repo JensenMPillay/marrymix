@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="content-language" content="en">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Welcome to MarryMix, your trusted partner for unforgettable cocktail services at weddings, birthdays, and private events.">
 		<title>
 			{% block title %}{% endblock %}
 		</title>
 		<!-- Favicons -->
 		<link
-		href="{{asset("images/logo/marrymix-icon.ico")}}" rel="icon"/>
+		href="{{ asset('images/logo/marrymix-icon.ico') }}" rel="icon">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -17,18 +19,18 @@
 	</head>
 	<body id="body" class="bg-black text-neutral-100 font-opensans">
 		{% if not app.session.get('cookieConsent') %}
-			{{include('cookie_consent/consent.html.twig')}}
+			{% include 'cookie_consent/consent.html.twig' %}
 		{% endif %}
 		{% block topbar %}
-			{{include('_partials/topbar.html.twig')}}
+			{% include '_partials/topbar.html.twig' %}
 			{% block flash %}
-				{{include('_partials/flash.html.twig')}}
+				{% include '_partials/flash.html.twig' %}
 			{% endblock %}
 		{% endblock %}
 		<!-- ======= Header ======= -->
 		<header id="header" class="fixed-top d-flex align-items-center" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="500">
 			{% block header %}
-				{{include('_partials/header.html.twig')}}
+				{% include '_partials/header.html.twig' %}
 			{% endblock %}
 		</header>
 		<!-- ======= Header ======= -->
@@ -42,7 +44,7 @@
 			<!-- ======= Footer ======= -->
 			<footer id="footer">
 				{% block footer %}
-					{{include('_partials/footer.html.twig')}}
+					{% include '_partials/footer.html.twig' %}
 				{% endblock %}
 			</footer>
 			<!-- ======= Footer ======= -->

@@ -124,7 +124,7 @@ class PaymentController extends AbstractController
          * @var User $user
          */
         $email = (new TemplatedEmail())
-            ->from(new Address('marrymixcocktails@gmail.com', 'MarryMix Bot'))
+            ->from(new Address('info@marrymix.fr', 'MarryMix Bot'))
             ->to($user->getEmail())
             ->subject('MarryMix - Order Confirmation')
             ->htmlTemplate('mail/confirmation_order.html.twig')
