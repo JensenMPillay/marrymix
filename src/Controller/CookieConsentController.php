@@ -19,12 +19,12 @@ class CookieConsentController extends AbstractController
     #[Route('/cookie-consent', name: 'app_cookie_consent')]
     public function cookieConsent(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): JsonResponse
     {
-
+        // Get All Data from Request 
         $cookieConsentData = $request->request->all();
 
         $cookieConsent = new CookieConsent();
 
-        // Accéder aux valeurs des champs du formulaire
+        // Verify if checkboxes is clicked 
         if (key_exists('analyticsConsent', $cookieConsentData['cookie_consent'])) {
             $cookieConsent->setAnalyticsConsent(true);
         } else {
@@ -37,6 +37,7 @@ class CookieConsentController extends AbstractController
             $cookieConsent->setMarketingConsent(false);
         }
 
+        // Get Ip Address 
         $ipAddress = $request->server->get('REMOTE_ADDR');
         $cookieConsent->setIpAddress($ipAddress);
 

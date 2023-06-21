@@ -45,19 +45,18 @@ import Swiper from "swiper/bundle";
   };
 
   /**
-   * Navbar links active state on scroll
+   * Navbar links active state
    */
-  let navbarlinks = select("#navbar .scrollto", true);
+  let navbarlinks = select("#navbar .nav-link", true);
   const navbarlinksActive = () => {
-    let position = window.scrollY + 200;
     navbarlinks.forEach((navbarlink) => {
-      if (!navbarlink.hash) return;
-      let section = select(navbarlink.hash);
-      if (!section) return;
-      if (
-        position >= section.offsetTop &&
-        position <= section.offsetTop + section.offsetHeight
-      ) {
+      let pathnameCleaned = navbarlink.pathname.replace(/\//g, "");
+      if (pathnameCleaned == "") {
+        var section = document.getElementById("hero");
+      } else {
+        var section = document.getElementById(pathnameCleaned);
+      }
+      if (section) {
         navbarlink.classList.add("active");
       } else {
         navbarlink.classList.remove("active");
@@ -65,7 +64,6 @@ import Swiper from "swiper/bundle";
     });
   };
   window.addEventListener("load", navbarlinksActive);
-  onscroll(document, navbarlinksActive);
 
   /**
    * Scrolls to an element with header offset
@@ -276,7 +274,9 @@ import Swiper from "swiper/bundle";
    * AJAX for Add To Cart - MENU
    */
   const handleAddToCart = () => {
+    // Get Links
     const productLinks = document.querySelectorAll(".btn-add-to-cart");
+    // Creating GLightbox
     let glightboxes = [];
     for (let i = 1; i <= productLinks.length; i++) {
       glightboxes[i] = GLightbox({
@@ -287,11 +287,12 @@ import Swiper from "swiper/bundle";
     productLinks.forEach(function (link) {
       link.addEventListener("click", function (event) {
         event.preventDefault();
-
+        // Use Symfony as API
         fetch(link.href)
           .then((response) => response.json())
           .then((json) => {
             if (json.code == "ITEM_ADDED_SUCCESSFULLY") {
+              // Adjust Style if Success
               link.classList.add("pointer-events-none");
               link.classList.add("cursor-not-allowed");
               link.classList.add("opacity-50");

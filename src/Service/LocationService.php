@@ -26,14 +26,17 @@ class LocationService extends AbstractController
 
         $accessToken = $_ENV['API_LOCATIONIQ_KEY'];
 
+        // Shop Coordinates 
         $lngShop = self::LONGITUDE_SHOP;
         $latShop = self::LATITUDE_SHOP;
 
+        // Customer Coordinates 
         $lngCustomer = $coordinatesCustomer['lng'];
         $latCustomer = $coordinatesCustomer['lat'];
 
         $coordinates = $lngShop . ',' . $latShop . ';' . $lngCustomer . ',' . $latCustomer;
 
+        // Api URL 
         $url = 'https://eu1.locationiq.com/v1/matrix/driving/' . $coordinates . '?key=' . $accessToken . '&sources=0&destinations=1&annotations=duration,distance';
 
         try {
@@ -41,6 +44,7 @@ class LocationService extends AbstractController
             $statusCode = $response->getStatusCode();
 
             if ($statusCode === 200) {
+                // if Success, decoding response 
                 $content = $response->getContent();
 
                 $jsonDecode = new JsonDecode();
