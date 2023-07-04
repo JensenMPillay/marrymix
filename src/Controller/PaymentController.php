@@ -141,7 +141,7 @@ class PaymentController extends AbstractController
 
         $this->addFlash('success', "Your order has been successfully completed. A confirmation email has been sent to your email address.");
 
-        return $this->redirectToRoute('index');
+        return $this->redirectToRoute('app_account_orders');
     }
 
     #[Route('error', name: 'error')]

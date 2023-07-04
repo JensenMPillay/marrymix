@@ -15,7 +15,7 @@
 			<div class="row d-flex justify-content-center align-items-center" data-aos="fade-down" data-aos-delay="100">
 				<form method="post" class="col-10 col-md-4 mx-2 d-flex flex-column justify-center">
 					{% if error %}
-						<div class=" alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						<div class="text-xs font-poiretone text-red-700 my-1">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
 					{# <label for="inputEmail">Email</label> #}
 					<input
@@ -28,14 +28,14 @@
 
 
 					{# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-																																																																																																																																																																																				        See https://symfony.com/doc/current/security/remember_me.html
-																																																																																				
-																																																																																								<div class="checkbox mb-3">
-																																																																																									<label>
-																																																																																										<input type="checkbox" name="_remember_me">
-																																																																																										Remember me
-																																																																																									</label>
-																																																																																								</div> #}
+																																																																																																																																																																																									        See https://symfony.com/doc/current/security/remember_me.html
+																																																																																									
+																																																																																													<div class="checkbox mb-3">
+																																																																																														<label>
+																																																																																															<input type="checkbox" name="_remember_me">
+																																																																																															Remember me
+																																																																																														</label>
+																																																																																													</div> #}
 
 
 					<button class="btn-tw btn-lg btn-primary-tw m-auto" type="submit">
