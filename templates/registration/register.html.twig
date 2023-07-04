@@ -16,22 +16,22 @@
 				<div class="col-10 col-md-4 mx-2 d-flex flex-column items-center justify-center">
 					{{ form_start(registrationForm, {'attr': { 'class': 'text-center'}}) }}
 					{{ form_widget(registrationForm.email, {'attr': { 'class': 'mb-3 form-input-tw w-full', 'placeholder': "Email"}}) }}
-					{{ form_errors(registrationForm.email, {'attr': { 'class': 'text-xs font-poiretone text-red-700'}}) }}
+					{{ form_errors(registrationForm.email, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
 					{{ form_widget(registrationForm.lastName, {'attr': { 'class': 'mb-3 form-input-tw w-full', 'placeholder': "Lastname"}}) }}
-					{{ form_errors(registrationForm.lastName, {'attr': { 'class': 'text-xs font-poiretone text-red-700'}}) }}
+					{{ form_errors(registrationForm.lastName, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
 					{{ form_widget(registrationForm.firstName, {'attr': { 'class': 'mb-3 form-input-tw w-full', 'placeholder': "Firstname"}}) }}
-					{{ form_errors(registrationForm.firstName, {'attr': { 'class': 'text-xs font-poiretone text-red-700'}}) }}
+					{{ form_errors(registrationForm.firstName, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
 					{{ form_widget(registrationForm.plainPassword, {'attr': { 'class': 'mb-3 form-input-tw w-full', 'placeholder': "Password"}}) }}
-					{{ form_errors(registrationForm.plainPassword, {'attr': { 'class': 'text-xs font-poiretone text-red-700'}}) }}
+					{{ form_errors(registrationForm.plainPassword, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
 					{{ form_widget(registrationForm.confirmPassword, {'attr': { 'class': 'mb-3 form-input-tw w-full', 'placeholder': "Confirm Password"}}) }}
-					{{ form_errors(registrationForm.confirmPassword, {'attr': { 'class': 'text-xs font-poiretone text-red-700'}}) }}
+					{{ form_errors(registrationForm.confirmPassword, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
 
 					<div class="text-center">
 						<label class="mb-3 text-center text-primary-200 text-xs uppercase">
 							{{ form_widget(registrationForm.agreeTerms, {'attr': { 'class': 'mr-1 text-primary'}}) }}
-																									Agree to terms
+																																Agree to terms
 						</label>
-						{{ form_errors(registrationForm.agreeTerms, {'attr': { 'class': 'text-xs font-poiretone text-red-700'}}) }}
+						{{ form_errors(registrationForm.agreeTerms, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
 					</div>
 					{{ form_errors(registrationForm) }}
 					<div class="text-center">

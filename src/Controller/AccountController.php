@@ -80,7 +80,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('/orders', name: 'orders', requirements: ['id' => '\d+'])]
+    #[Route('/orders', name: 'orders')]
     public function orders(): Response
     {
 

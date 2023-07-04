@@ -72,6 +72,11 @@
 																	}
 																}) }}
 					</div>
+					<div class="text-center mt-1">
+						{{ form_errors(form.email, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
+						{{ form_errors(form.subject, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
+						{{ form_errors(form.content, {'attr': { 'class': 'text-xs font-poiretone text-red-700 my-1'}}) }}
+					</div>
 				</div>
 			</div>
 			{{ form_end(form) }}

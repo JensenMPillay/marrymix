@@ -33,7 +33,7 @@
 									<i class="bi bi-chevron-right"></i>
 								</a>
 								<ul>
-									{% for order in app.user.orders %}
+									{% for order in app.user.orders|slice(-5)|reverse %}
 										<li>
 											<a href="{{ path('app_account_order', {'id': order.id}) }}">Order N°{{order.id}}</a>
 										</li>

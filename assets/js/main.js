@@ -324,12 +324,14 @@ import Swiper from "swiper/bundle";
     const rows = document.querySelectorAll(".table-row-group .table-row");
     rows.forEach((row) => {
       let input = row.querySelector("input");
-      row.addEventListener("mouseenter", function () {
-        input.classList.replace("bg-secondary", "bg-secondary-100");
-      });
-      row.addEventListener("mouseleave", function () {
-        input.classList.replace("bg-secondary-100", "bg-secondary");
-      });
+      if (input) {
+        row.addEventListener("mouseenter", function () {
+          input.classList.replace("bg-secondary", "bg-secondary-100");
+        });
+        row.addEventListener("mouseleave", function () {
+          input.classList.replace("bg-secondary-100", "bg-secondary");
+        });
+      }
     });
   };
   window.addEventListener("load", syncBgColorRowCart);
@@ -566,7 +568,8 @@ import Swiper from "swiper/bundle";
             if (response.ok) {
               return response.text();
             }
-            throw new Error("Error: " + response.status);
+            console.log(response);
+            throw new Error(response.status);
           })
           .then(function (data) {
             console.log(data);

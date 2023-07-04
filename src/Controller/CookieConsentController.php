@@ -25,16 +25,21 @@ class CookieConsentController extends AbstractController
         $cookieConsent = new CookieConsent();
 
         // Verify if checkboxes is clicked 
-        if (key_exists('analyticsConsent', $cookieConsentData['cookie_consent'])) {
-            $cookieConsent->setAnalyticsConsent(true);
-        } else {
+        if ($cookieConsentData == []) {
             $cookieConsent->setAnalyticsConsent(false);
-        }
-
-        if (key_exists('marketingConsent', $cookieConsentData['cookie_consent'])) {
-            $cookieConsent->setMarketingConsent(true);
-        } else {
             $cookieConsent->setMarketingConsent(false);
+        } else {
+            if (key_exists('analyticsConsent', $cookieConsentData['cookie_consent'])) {
+                $cookieConsent->setAnalyticsConsent(true);
+            } else {
+                $cookieConsent->setAnalyticsConsent(false);
+            }
+
+            if (key_exists('marketingConsent', $cookieConsentData['cookie_consent'])) {
+                $cookieConsent->setMarketingConsent(true);
+            } else {
+                $cookieConsent->setMarketingConsent(false);
+            }
         }
 
         // Get Ip Address 
@@ -45,6 +50,8 @@ class CookieConsentController extends AbstractController
 
         $entityManager->persist($cookieConsent);
         $entityManager->flush();
+
+        $session = $request->getSession();
 
         $session->set('cookieConsent', "true");
 
