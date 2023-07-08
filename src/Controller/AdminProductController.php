@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Tag;
 use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\ProductType;
@@ -22,6 +23,7 @@ class AdminProductController extends AbstractController
     public function product(ProductRepository $productRepo): Response
     {
         $products = $productRepo->findAll();
+
         // View
         return $this->render("admin/admin_product/product.html.twig", ["products" => $products]);
     }

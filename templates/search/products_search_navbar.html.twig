@@ -1,0 +1,26 @@
+<div class="menu menu-container scroll-smooth h-max overflow-visible" data-aos="fade-in">
+	{% for productFound in productsFound|slice(0, 4) %}
+		<div id="{{productFound.id}}" class="menu-item scroll-smooth my-1 mx-3">
+			<a href="{{ path('app_menu_search_products_results', { 'searchTerm': searchTerm }) }}" class="product-link cursor-pointer">
+				<img src="{{ asset('uploads/images_products/' ~ productFound.carousel[0]) }}" class="menu-img" alt="{{productFound.name}}"/>
+				<div class="menu-content">
+					<span class="product-name font-poiretone">{{productFound.name}}</span>
+					<span class="product-price font-poiretone">{{ productFound.price|format_currency('EUR', locale='de') }}</span>
+				</div>
+				<div class="menu-ingredients font-italianno text-2xl">
+					{{productFound.description}}
+				</div>
+			</a>
+		</div>
+	{% else %}
+		<div class="scroll-smooth">
+			<span class="product-name font-poiretone">No product found.</span>
+		</div>
+	{% endfor %}
+	{% if productsFound|length > 4 %}
+		<a href="{{ path('app_menu_search_products_results', { 'searchTerm': searchTerm }) }}">
+			<div class="text-center w-full bg-secondary-900 text-primary-500 text-sm font-poiretone hover:bg-secondary-100 hover:text-secondary-900 focus:bg-secondary-100 focus:text-secondary-900 active:bg-secondary-100 active:text-secondary-900 transition-all ease-in-out duration-300">See More ...
+			</div>
+		</a>
+	{% endif %}
+</div>

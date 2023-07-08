@@ -65,7 +65,14 @@
 		<i class="bi bi-list mobile-nav-toggle"></i>
 	</nav>
 	<!-- .navbar -->
-	<div class="d-none d-lg-flex flex-lg-row">
+	<div class="d-none d-lg-flex flex-lg-row relative">
+		<div class="mx-2 flex flex-col items-center rounded cursor-pointer group py-2 px-5">
+			<div class="flex items-center rounded cursor-pointer group">
+				<i id="searchIcon" class="bi bi-search bg-transparent rounded-l hover:text-primary-500 p-2"></i>
+				<input id="searchInput" type="text" class="bg-transparent border-none rounded-r w-0 outline-none group-hover:w-40 focus:w-40 transform transition-all duration-700 ease-in-out" placeholder="Search...">
+			</div>
+			<div id="searchResults" class="opacity-0 bg-tetriary w-full h-auto absolute top-full left-0 transition-all duration-700 ease-in-out rounded shadow-2xl"></div>
+		</div>
 		<a href="{{ path('app_cart') }}" class="btn-tw btn-secondary-tw">Cart</a>
 	</div>
 </div>

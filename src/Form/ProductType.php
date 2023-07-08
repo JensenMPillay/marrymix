@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Bundle;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Tag;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,16 +60,25 @@ class ProductType extends AbstractType
                 'placeholder' => 'Choose a category',
                 'multiple' => false,
                 'expanded' => true,
+            ])
+            ->add('tags', EntityType::class, [
+                // Choices from Entity ?
+                'class' => Tag::class,
+                // Property Visible for Choice ?
+                'choice_label' => 'name',
+                'placeholder' => 'Select Tags',
+                'multiple' => true,
+                'expanded' => true,
+                'mapped' => true,
+                'by_reference' => false,
+                'group_by' => function (Tag $tag) {
+                    return $tag->getType();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
             ]);
-        // ->add('bundle', EntityType::class, [
-        //     // Choices from Entity ?
-        //     'class' => Bundle::class,
-        //     // Property Visible for Choice ?
-        //     'choice_label' => 'name',
-        //     'placeholder' => 'Choose some bundles',
-        //     'multiple' => true,
-        //     'expanded' => true,
-        // ]);
         for ($i = 0; $i < 5; $i++) {
             $builder->add("image" . $i, FileType::class, [
                 'mapped' => false,
