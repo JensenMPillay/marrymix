@@ -7,6 +7,7 @@ import markerIcon from "leaflet/dist/images/marker-marrymix-icon.svg";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Datepicker from "flowbite-datepicker/Datepicker";
 import Swiper from "swiper/bundle";
+import { Modal } from "flowbite";
 
 (function () {
   "use strict";
@@ -269,6 +270,167 @@ import Swiper from "swiper/bundle";
       mirror: false,
     });
   });
+
+  /**
+   * AJAX for SearchBar
+   */
+  const handleSearchBar = () => {
+    // Get Elements
+    const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
+
+    if (searchInput && searchResults) {
+      // Set TimeOut for not displaying in continue
+      let timeoutId;
+
+      searchInput.addEventListener("input", () => {
+        clearTimeout(timeoutId);
+        const searchTerm = searchInput.value.trim();
+        timeoutId = setTimeout(() => {
+          if (searchTerm.length >= 3) {
+            performSearch(searchTerm);
+            searchResults.classList.replace("opacity-0", "opacity-100");
+          } else {
+            searchResults.classList.replace("opacity-100", "opacity-0");
+            searchResults.innerHTML = "";
+          }
+        }, 500);
+      });
+
+      // Ajax Request
+      function performSearch(searchTerm) {
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "GET",
+          `/menu/search/products?term=${encodeURIComponent(searchTerm)}`
+        );
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            searchResults.innerHTML = xhr.responseText;
+          }
+        };
+        xhr.send();
+      }
+
+      // Hide Search Results when Click on Window
+      document.addEventListener("click", (event) => {
+        const targetElement = event.target;
+
+        if (!searchResults.contains(targetElement)) {
+          searchResults.classList.replace("opacity-100", "opacity-0");
+        }
+      });
+    }
+  };
+  window.addEventListener("load", handleSearchBar);
+
+  /**
+   * AJAX for SearchPage
+   */
+  const handleSearchPage = () => {
+    // Get Elements
+    const searchInputPage = document.getElementById("searchInputPage");
+    const searchResultsPage = document.getElementById("searchResultsPage");
+
+    if (searchInputPage && searchResultsPage) {
+      // Set TimeOut for not displaying in continue
+      let timeoutId;
+
+      searchInputPage.addEventListener("input", () => {
+        clearTimeout(timeoutId);
+        const searchTermPage = searchInputPage.value.trim();
+        timeoutId = setTimeout(() => {
+          if (searchTermPage.length >= 3) {
+            performSearch(searchTermPage);
+            searchResultsPage.classList.replace("opacity-0", "opacity-100");
+          } else {
+            searchResultsPage.classList.replace("opacity-100", "opacity-0");
+            searchResultsPage.innerHTML = "";
+          }
+        }, 500);
+      });
+
+      // Modal Creation
+      function createModals() {
+        const modalLinks = document.querySelectorAll("[data-modal-toggle]");
+
+        modalLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const options = {
+              placement: "center-center",
+              backdrop: "dynamic",
+              backdropClasses: "bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
+              closable: true,
+            };
+            const targetModalId = link.getAttribute("data-modal-toggle");
+            const targetModal = document.getElementById(targetModalId);
+            const modalInstance = new Modal(targetModal, options);
+            const modalCloseButton =
+              targetModal.querySelector("[data-modal-hide]");
+            modalCloseButton.addEventListener("click", () => {
+              modalInstance.hide();
+            });
+            modalInstance.show();
+            targetModal.scrollIntoView({ behavior: "smooth" });
+          });
+        });
+      }
+
+      // Ajax Request
+      function performSearch(searchTermPage) {
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "GET",
+          `/menu/search/products/results?term=${encodeURIComponent(
+            searchTermPage
+          )}`
+        );
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            searchResultsPage.innerHTML = xhr.responseText;
+            createModals();
+            handleAddToCart();
+          }
+        };
+        xhr.send();
+      }
+
+      const searchTermPage = searchInputPage.value.trim();
+      if (searchTermPage.length >= 3) {
+        performSearch(searchTermPage);
+        searchResultsPage.classList.replace("opacity-0", "opacity-100");
+        searchInputPage.focus();
+        searchInputPage.setSelectionRange(
+          searchInputPage.value.length,
+          searchInputPage.value.length
+        );
+      }
+    }
+  };
+  window.addEventListener("load", handleSearchPage);
+
+  /*
+   * Handle Backdrop Modal Behavior
+   */
+  const deleteBackdropModal = () => {
+    const productLinks = document.querySelectorAll(".product-link");
+    productLinks.forEach(function (link) {
+      link.addEventListener("click", () => {
+        const backdropModal = document.querySelector("[modal-backdrop]");
+        if (backdropModal) {
+          backdropModal.classList.remove(
+            "bg-gray-900",
+            "bg-opacity-50",
+            "dark:bg-opacity-80",
+            "inset-0",
+            "z-40"
+          );
+        }
+      });
+    });
+  };
+  window.addEventListener("load", deleteBackdropModal);
 
   /**
    * AJAX for Add To Cart - MENU

@@ -55,10 +55,14 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
     private Collection $orderItem;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'product', cascade: ['persist'])]
+    private Collection $tags;
+
     public function __construct()
     {
         $this->bundle = new ArrayCollection();
         $this->orderItem = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +215,33 @@ class Product
             if ($orderItem->getProduct() === $this) {
                 $orderItem->setProduct(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+            $tag->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeProduct($this);
         }
 
         return $this;

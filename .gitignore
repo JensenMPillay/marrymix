@@ -9,6 +9,8 @@
 /public/bundles/
 /var/
 /vendor/
+deploy.sh
+connect.sh
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

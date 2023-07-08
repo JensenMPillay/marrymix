@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Search Result
+{% endblock %}
+
+{% block body %}
+
+	<!-- ======= Menu Section ======= -->
+	<section id="menu" class="menu section-bg">
+		<div class="container" data-aos="fade-down">
+
+			<div class="section-title">
+				<h2>Search Result</h2>
+			</div>
+
+			<div class="row" data-aos="fade-down" data-aos-delay="100">
+				<div class="col-lg-12 d-flex flex-column justify-content-center">
+					<div class="flex justify-center items-center rounded cursor-pointer mb-2">
+						<input id="searchInputPage" type="text" class="bg-transparent w-40 border-r-0 border-primary-500 rounded-l transform transition-all duration-700 ease-in-out" placeholder="Search..." value="{{searchTerm}}">
+						<i id="searchIcon" class="bi bi-search bg-transparent border-[1px] border-l-0 border-primary-500 rounded-r hover:text-primary-500 p-2"></i>
+					</div>
+				</div>
+			</div>
+			<div id="searchResultsPage" class="opacity-0 transition-all duration-700 ease-in-out min-h-screen"></div>
+		</div>
+	</section>
+	<!-- End Menu Section -->
+
+{% endblock %}
