@@ -107,6 +107,13 @@ class MenuController extends AbstractController
             return $this->redirectToRoute('index');
         }
 
+        if ($searchTerm == "All") {
+            return $this->render('search/products_search_page.html.twig', [
+                'productsFound' => $productRepository->findAll(),
+                'searchTerm' => $searchTerm,
+            ]);
+        };
+
         // Separate words from request
         $searchTermArray = explode(" ", $searchTerm);
 
