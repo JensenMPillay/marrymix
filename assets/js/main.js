@@ -340,12 +340,14 @@ import { Modal } from "flowbite";
         clearTimeout(timeoutId);
         const searchTermPage = searchInputPage.value.trim();
         timeoutId = setTimeout(() => {
-          if (searchTermPage.length >= 3) {
+          if (searchTermPage.length >= 1) {
             performSearch(searchTermPage);
             searchResultsPage.classList.replace("opacity-0", "opacity-100");
           } else {
-            searchResultsPage.classList.replace("opacity-100", "opacity-0");
-            searchResultsPage.innerHTML = "";
+            performSearch("All");
+            searchResultsPage.classList.replace("opacity-0", "opacity-100");
+            // searchResultsPage.classList.replace("opacity-100", "opacity-0");
+            // searchResultsPage.innerHTML = "";
           }
         }, 500);
       });
@@ -372,7 +374,7 @@ import { Modal } from "flowbite";
               modalInstance.hide();
             });
             modalInstance.show();
-            targetModal.scrollIntoView({ behavior: "smooth" });
+            targetModal.scrollIntoView({ behavior: "smooth", block: "center" });
           });
         });
       }
