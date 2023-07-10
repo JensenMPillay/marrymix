@@ -14,6 +14,8 @@ MarryMix provides the following features:
 
 - **Secure Payment**: The application offers seamless payment processing through the integration of the Stripe payment gateway, ensuring a safe and convenient checkout experience.
 
+- **Automatic Invoice Generation**: The system automatically generates invoices based on the customer's order details, including itemized breakdown, pricing, and applicable taxes.
+
 ## Technology Stack
 
 MarryMix is built using the following technologies:
