@@ -38,7 +38,7 @@ MarryMix is built using the following technologies:
 
 To get started with MarryMix, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/username/repository.git`
+1. Clone the repository: `git clone [https://github.com/username/repository.git](https://github.com/JensenMPillay/marrymix.git)`
 
 2. Install the necessary dependencies by running the command: `composer install`
 
