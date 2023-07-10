@@ -1,4 +1,3 @@
-```markdown
 # MarryMix
 
 https://www.marrymix.fr/
@@ -68,4 +67,3 @@ We welcome contributions to MarryMix! To contribute, please follow these guideli
 For any inquiries or support, please reach out to our team at info@marrymix.fr. We'd be happy to assist you!
 
 Visit our website: https://www.marrymix.fr/
-```
