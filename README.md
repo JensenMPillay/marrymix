@@ -1,5 +1,6 @@
 <p align="center">
   <a href="https://www.marrymix.fr/">
+  <img src="https://www.marrymix.fr/images/logo/marrymix-detailed.png" height="240">
     <h3 align="center">Marrymix</h3>
   </a>
 </p>
