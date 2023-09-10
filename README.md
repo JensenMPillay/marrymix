@@ -1,6 +1,10 @@
-# MarryMix
+<p align="center">
+  <a href="https://www.marrymix.fr/">
+    <h3 align="center">Marrymix</h3>
+  </a>
+</p>
 
-https://www.marrymix.fr/
+ <h5 align="center">https://www.marrymix.fr/</h5>
 
 **MarryMix** is a web application that offers a curated cocktail menu for ordering at various festive events throughout France. With MarryMix, customers can easily select and order cocktails to enhance their special occasions.
 
