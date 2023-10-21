@@ -732,11 +732,9 @@ import { Modal } from "flowbite";
             if (response.ok) {
               return response.text();
             }
-            console.log(response);
             throw new Error(response.status);
           })
           .then(function (data) {
-            console.log(data);
             form.style.display = "none";
           })
           .catch(function (error) {
