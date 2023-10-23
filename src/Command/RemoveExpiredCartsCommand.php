@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 #[AsCommand(
     name: 'app:remove-expired-carts',
     description: 'Removes carts that have been inactive for a defined period',
+    aliases: ['app:rm-expired-carts', 'app:delete-expired-carts', 'app:del-expired-carts']
 )]
 class RemoveExpiredCartsCommand extends Command
 {
@@ -41,6 +42,16 @@ class RemoveExpiredCartsCommand extends Command
             ->addArgument('days', InputArgument::OPTIONAL, 'The number of days a cart can remain inactive', 2)
             // ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
+    }
+
+    protected function initialize(InputInterface $input, OutputInterface $output): void
+    {
+        $title = 'Delete Expired Carts';
+        $underline = str_repeat('=', strlen($title));
+        $output->writeln([
+            $title,
+            $underline,
+        ]);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
